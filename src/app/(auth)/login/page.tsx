@@ -1,15 +1,30 @@
 "use client";
 
 import { Suspense, useState } from "react";
-import { useRouter, useSearchParams } from "next/navigation";
+import { useSearchParams } from "next/navigation";
 import Link from "next/link";
 import { authClient } from "@/lib/auth-client";
 
+function EyeIcon({ open }: { open: boolean }) {
+  return open ? (
+    <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" />
+      <circle cx="12" cy="12" r="3" />
+    </svg>
+  ) : (
+    <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94" />
+      <path d="M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19" />
+      <line x1="1" y1="1" x2="23" y2="23" />
+    </svg>
+  );
+}
+
 function LoginForm() {
-  const router = useRouter();
   const searchParams = useSearchParams();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
 
@@ -24,37 +39,32 @@ function LoginForm() {
       setLoading(false);
       return;
     }
-    // Hard redirect so the browser re-reads the session cookie from scratch.
-    // Keep loading=true — page is navigating away.
     window.location.href = searchParams.get("redirect") ?? "/dashboard";
   }
 
   return (
     <>
-      <h1 className="mb-6 text-xl font-semibold text-gray-900">Sign in</h1>
+      <h1 className="mb-6 text-xl font-bold text-[#3A2E28]">Sign in</h1>
 
       {process.env.NODE_ENV !== "production" && (
         <button
           type="button"
           onClick={() => { setEmail("bengicana@gmail.com"); setPassword("123451234512"); }}
-          className="mb-4 w-full rounded-md border border-dashed border-gray-300 px-3 py-1.5 text-xs text-gray-400 hover:border-gray-400 hover:text-gray-600"
+          className="mb-4 w-full rounded-xl border border-dashed border-[#3A2E28]/20 px-3 py-2 text-xs text-[#3A2E28]/40 transition-colors hover:border-[#F4633A]/40 hover:text-[#F4633A]/60"
         >
           Dev: fill test account
         </button>
       )}
 
       {error && (
-        <div className="mb-4 rounded-md bg-red-50 px-4 py-3 text-sm text-red-700">
+        <div className="mb-4 rounded-xl bg-red-50 px-4 py-3 text-sm text-red-600">
           {error}
         </div>
       )}
 
       <form onSubmit={handleSubmit} className="space-y-4">
         <div>
-          <label
-            htmlFor="email"
-            className="mb-1 block text-sm font-medium text-gray-700"
-          >
+          <label htmlFor="email" className="mb-1.5 block text-xs font-semibold uppercase tracking-wide text-[#3A2E28]/50">
             Email
           </label>
           <input
@@ -64,52 +74,54 @@ function LoginForm() {
             required
             value={email}
             onChange={(e) => setEmail(e.target.value)}
-            className="w-full rounded-md border border-gray-300 px-3 py-2 text-sm shadow-sm focus:border-gray-500 focus:outline-none focus:ring-1 focus:ring-gray-500"
+            className="w-full rounded-xl border border-[#3A2E28]/15 bg-[#FFFBF5] px-3.5 py-2.5 text-sm text-[#3A2E28] placeholder-[#3A2E28]/30 transition-all focus:border-[#F4633A] focus:bg-white focus:outline-none focus:ring-2 focus:ring-[#F4633A]/20"
+            placeholder="you@example.com"
           />
         </div>
 
         <div>
-          <label
-            htmlFor="password"
-            className="mb-1 block text-sm font-medium text-gray-700"
-          >
-            Password
-          </label>
-          <input
-            id="password"
-            type="password"
-            autoComplete="current-password"
-            required
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            className="w-full rounded-md border border-gray-300 px-3 py-2 text-sm shadow-sm focus:border-gray-500 focus:outline-none focus:ring-1 focus:ring-gray-500"
-          />
-        </div>
-
-        <div className="flex items-center justify-end">
-          <Link
-            href="/forgot-password"
-            className="text-sm text-gray-600 hover:text-gray-900 hover:underline"
-          >
-            Forgot password?
-          </Link>
+          <div className="mb-1.5 flex items-center justify-between">
+            <label htmlFor="password" className="text-xs font-semibold uppercase tracking-wide text-[#3A2E28]/50">
+              Password
+            </label>
+            <Link href="/forgot-password" className="text-xs font-medium text-[#3A2E28]/50 transition-colors hover:text-[#F4633A]">
+              Forgot password?
+            </Link>
+          </div>
+          <div className="relative">
+            <input
+              id="password"
+              type={showPassword ? "text" : "password"}
+              autoComplete="current-password"
+              required
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              className="w-full rounded-xl border border-[#3A2E28]/15 bg-[#FFFBF5] px-3.5 py-2.5 pr-10 text-sm text-[#3A2E28] transition-all focus:border-[#F4633A] focus:bg-white focus:outline-none focus:ring-2 focus:ring-[#F4633A]/20"
+              placeholder="••••••••••••"
+            />
+            <button
+              type="button"
+              onClick={() => setShowPassword((v) => !v)}
+              className="absolute right-3 top-1/2 -translate-y-1/2 text-[#3A2E28]/30 transition-colors hover:text-[#3A2E28]/60"
+              aria-label={showPassword ? "Hide password" : "Show password"}
+            >
+              <EyeIcon open={showPassword} />
+            </button>
+          </div>
         </div>
 
         <button
           type="submit"
           disabled={loading}
-          className="w-full rounded-md bg-gray-900 px-4 py-2 text-sm font-medium text-white hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2 disabled:opacity-50"
+          className="mt-2 w-full rounded-xl bg-[#F4633A] py-2.5 text-sm font-bold text-white transition-opacity hover:opacity-90 focus:outline-none focus:ring-2 focus:ring-[#F4633A] focus:ring-offset-2 disabled:opacity-50"
         >
-          {loading ? "Signing in..." : "Sign in"}
+          {loading ? "Signing in…" : "Sign in"}
         </button>
       </form>
 
-      <p className="mt-6 text-center text-sm text-gray-600">
+      <p className="mt-6 text-center text-sm text-[#3A2E28]/50">
         Don&apos;t have an account?{" "}
-        <Link
-          href="/signup"
-          className="font-medium text-gray-900 hover:underline"
-        >
+        <Link href="/signup" className="font-semibold text-[#F4633A] hover:opacity-80 transition-opacity">
           Sign up
         </Link>
       </p>
