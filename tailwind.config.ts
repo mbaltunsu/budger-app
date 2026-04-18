@@ -8,7 +8,6 @@ const config: Config = {
       // Design tokens (colors, radii, spacing, typography) will be applied
       // by the UI stream once the "Playful Tracker" design language is finalised.
       colors: {
-        // Slots for semantic color tokens — values TBD by UI stream.
         background: "hsl(var(--background))",
         foreground: "hsl(var(--foreground))",
         primary: {
@@ -34,6 +33,16 @@ const config: Config = {
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
         ring: "hsl(var(--ring))",
+        coral: "var(--coral)",
+        "coral-light": "var(--coral-light)",
+        forest: "var(--forest)",
+        "forest-light": "var(--forest-light)",
+        cream: "var(--cream)",
+        ink: "var(--ink)",
+      },
+      fontFamily: {
+        sans: ["var(--font-nunito)", "system-ui", "sans-serif"],
+        nunito: ["var(--font-nunito)", "system-ui", "sans-serif"],
       },
       borderRadius: {
         lg: "var(--radius)",
