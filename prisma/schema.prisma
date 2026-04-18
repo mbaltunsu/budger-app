@@ -1,0 +1,220 @@
+// Prisma schema — personal-budget SaaS MVP
+// SPEC §5: BigInt minor units, DATE columns for user-facing dates,
+// TIMESTAMPTZ for createdAt/updatedAt, userId-scoped tenancy.
+// Better Auth manages its own tables (session, account, verification) separately.
+
+generator client {
+  provider = "prisma-client-js"
+  output   = "../node_modules/.prisma/client"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// ---------------------------------------------------------------------------
+// Enums
+// ---------------------------------------------------------------------------
+
+enum IncomeType {
+  SALARY
+  FREELANCE
+  BUSINESS
+  MIXED
+  ONE_TIME
+
+  @@map("income_type")
+}
+
+enum IncomeFrequency {
+  MONTHLY
+  WEEKLY
+  YEARLY
+  ONE_TIME
+
+  @@map("income_frequency")
+}
+
+enum BillFrequency {
+  MONTHLY
+  YEARLY
+  CUSTOM
+
+  @@map("bill_frequency")
+}
+
+enum BillingCycle {
+  MONTHLY
+  YEARLY
+
+  @@map("billing_cycle")
+}
+
+enum ExpenseSource {
+  MANUAL
+  IMPORT
+
+  @@map("expense_source")
+}
+
+enum TaxMode {
+  MANUAL
+
+  @@map("tax_mode")
+}
+
+// ---------------------------------------------------------------------------
+// User
+// ---------------------------------------------------------------------------
+
+model User {
+  id                   String   @id @default(cuid())
+  email                String   @unique
+  email_verified       Boolean  @default(false) @map("email_verified")
+  password_hash        String?  @map("password_hash")
+  full_name            String?  @map("full_name")
+  country              String?
+  currency             String?  @db.Char(3)
+  timezone             String?
+  locale               String?
+  onboarding_completed Boolean  @default(false) @map("onboarding_completed")
+  created_at           DateTime @default(now()) @map("created_at") @db.Timestamptz
+  updated_at           DateTime @updatedAt @map("updated_at") @db.Timestamptz
+
+  // Relations
+  income_entries IncomeEntry[]
+  bills          Bill[]
+  subscriptions  Subscription[]
+  expenses       Expense[]
+  tax_profile    TaxProfile?
+
+  @@map("users")
+}
+
+// ---------------------------------------------------------------------------
+// IncomeEntry
+// ---------------------------------------------------------------------------
+
+model IncomeEntry {
+  id           String          @id @default(cuid())
+  user_id      String          @map("user_id")
+  type         IncomeType
+  title        String
+  amount_minor BigInt          @map("amount_minor")
+  frequency    IncomeFrequency
+  taxable      Boolean         @default(true)
+  start_date   DateTime        @map("start_date") @db.Date
+  end_date     DateTime?       @map("end_date") @db.Date
+  notes        String?
+  created_at   DateTime        @default(now()) @map("created_at") @db.Timestamptz
+  updated_at   DateTime        @updatedAt @map("updated_at") @db.Timestamptz
+
+  user User @relation(fields: [user_id], references: [id], onDelete: Cascade)
+
+  @@index([user_id, start_date])
+  @@map("income_entries")
+}
+
+// ---------------------------------------------------------------------------
+// Bill
+// ---------------------------------------------------------------------------
+
+model Bill {
+  id           String        @id @default(cuid())
+  user_id      String        @map("user_id")
+  name         String
+  category     String
+  amount_minor BigInt        @map("amount_minor")
+  frequency    BillFrequency
+  due_day      Int?          @map("due_day")
+  active       Boolean       @default(true)
+  notes        String?
+  created_at   DateTime      @default(now()) @map("created_at") @db.Timestamptz
+  updated_at   DateTime      @updatedAt @map("updated_at") @db.Timestamptz
+
+  user User @relation(fields: [user_id], references: [id], onDelete: Cascade)
+
+  @@index([user_id, active])
+  @@map("bills")
+}
+
+// ---------------------------------------------------------------------------
+// Subscription
+// ---------------------------------------------------------------------------
+
+model Subscription {
+  id            String       @id @default(cuid())
+  user_id       String       @map("user_id")
+  name          String
+  description   String?
+  category      String
+  amount_minor  BigInt       @map("amount_minor")
+  billing_cycle BillingCycle @map("billing_cycle")
+  billing_day   Int?         @map("billing_day")
+  active        Boolean      @default(true)
+  started_at    DateTime     @map("started_at") @db.Date
+  cancelled_at  DateTime?    @map("cancelled_at") @db.Date
+  created_at    DateTime     @default(now()) @map("created_at") @db.Timestamptz
+  updated_at    DateTime     @updatedAt @map("updated_at") @db.Timestamptz
+
+  user User @relation(fields: [user_id], references: [id], onDelete: Cascade)
+
+  @@index([user_id, active])
+  @@map("subscriptions")
+}
+
+// ---------------------------------------------------------------------------
+// Expense
+// ---------------------------------------------------------------------------
+
+model Expense {
+  id           String        @id @default(cuid())
+  user_id      String        @map("user_id")
+  title        String
+  amount_minor BigInt        @map("amount_minor")
+  category     String
+  expense_date DateTime      @map("expense_date") @db.Date
+  merchant     String?
+  notes        String?
+  source       ExpenseSource @default(MANUAL)
+  created_at   DateTime      @default(now()) @map("created_at") @db.Timestamptz
+  updated_at   DateTime      @updatedAt @map("updated_at") @db.Timestamptz
+
+  user User @relation(fields: [user_id], references: [id], onDelete: Cascade)
+
+  @@index([user_id, expense_date])
+  @@map("expenses")
+}
+
+// ---------------------------------------------------------------------------
+// TaxProfile — one row per user
+// ---------------------------------------------------------------------------
+
+model TaxProfile {
+  id              String   @id @default(cuid())
+  user_id         String   @unique @map("user_id")
+  country         String
+  tax_mode        TaxMode  @default(MANUAL) @map("tax_mode")
+  manual_rate_bps Int      @map("manual_rate_bps")
+  created_at      DateTime @default(now()) @map("created_at") @db.Timestamptz
+  updated_at      DateTime @updatedAt @map("updated_at") @db.Timestamptz
+
+  user User @relation(fields: [user_id], references: [id], onDelete: Cascade)
+
+  @@map("tax_profiles")
+}
+
+// ---------------------------------------------------------------------------
+// Category — seeded, read-only
+// ---------------------------------------------------------------------------
+
+model Category {
+  id    String  @id @default(cuid())
+  key   String  @unique
+  label String
+  icon  String?
+  order Int
+
+  @@map("categories")
+}
