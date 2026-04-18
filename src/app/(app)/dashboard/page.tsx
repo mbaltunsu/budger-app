@@ -110,8 +110,8 @@ export default async function DashboardPage({
             <p className="mt-2 text-sm font-medium text-white/60">{MONTH_NAMES[month - 1]} {year}</p>
           </div>
         </div>
-        <svg className="absolute bottom-0 left-0 w-full" viewBox="0 0 1440 60" preserveAspectRatio="none" aria-hidden>
-          <path d="M0,40 C360,60 1080,20 1440,40 L1440,60 L0,60 Z" fill="#FFFBF5" />
+        <svg className="absolute bottom-0 left-0 w-full" viewBox="0 0 1440 88" preserveAspectRatio="none" aria-hidden>
+          <path d="M0,52 C120,88 240,16 400,48 C560,80 680,8 840,44 C1000,80 1120,12 1280,46 C1360,62 1410,36 1440,28 L1440,88 L0,88 Z" fill="#FFFBF5" />
         </svg>
       </section>
 
