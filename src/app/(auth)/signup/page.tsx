@@ -1,12 +1,10 @@
 "use client";
 
 import { useState } from "react";
-import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { authClient } from "@/lib/auth-client";
 
 export default function SignupPage() {
-  const router = useRouter();
   const [fullName, setFullName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -30,22 +28,14 @@ export default function SignupPage() {
 
     setLoading(true);
 
-    try {
-      const result = await authClient.signUp.email({
-        email,
-        password,
-        name: fullName,
-      });
-      if (result.error) {
-        setError("Could not create your account. Please try again.");
-        return;
-      }
-      router.push("/onboarding");
-    } catch {
-      setError("Something went wrong. Please try again.");
-    } finally {
+    const result = await authClient.signUp.email({ email, password, name: fullName });
+    if (result.error) {
+      setError("Could not create your account. Please try again.");
       setLoading(false);
+      return;
     }
+    // Hard redirect — keep spinner up while navigating away.
+    window.location.href = "/dashboard";
   }
 
   return (

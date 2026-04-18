@@ -18,20 +18,15 @@ function LoginForm() {
     setError(null);
     setLoading(true);
 
-    try {
-      const result = await authClient.signIn.email({ email, password });
-      if (result.error) {
-        // Generic message — do not distinguish wrong password from unknown email
-        setError("Invalid credentials. Please check your email and password.");
-        return;
-      }
-      const redirect = searchParams.get("redirect") ?? "/dashboard";
-      router.push(redirect);
-    } catch {
-      setError("Something went wrong. Please try again.");
-    } finally {
+    const result = await authClient.signIn.email({ email, password });
+    if (result.error) {
+      setError("Invalid credentials. Please check your email and password.");
       setLoading(false);
+      return;
     }
+    // Hard redirect so the browser re-reads the session cookie from scratch.
+    // Keep loading=true — page is navigating away.
+    window.location.href = searchParams.get("redirect") ?? "/dashboard";
   }
 
   return (
