@@ -1,0 +1,24 @@
+{
+  "extends": ["next/core-web-vitals", "next/typescript"],
+  "rules": {
+    "no-console": "warn",
+    "no-restricted-imports": [
+      "error",
+      {
+        "paths": [
+          {
+            "name": "number",
+            "message": "Do not use Number() for currency math. Use BigInt minor-unit arithmetic instead."
+          }
+        ],
+        "patterns": [
+          {
+            "group": ["*"],
+            "importNamePattern": "^Number$",
+            "message": "Do not import or use Number() for currency values. Use BigInt minor-unit arithmetic instead."
+          }
+        ]
+      }
+    ]
+  }
+}
