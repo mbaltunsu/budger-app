@@ -84,20 +84,30 @@ export default async function DashboardPage({
 
   const disposablePositive = totals.disposable >= 0n;
 
+  const card = "rounded-2xl bg-white p-6 shadow-[0_2px_12px_rgba(58,46,40,0.07)]";
+
   return (
     <>
       {/* Hero band */}
-      <section className="relative w-full overflow-hidden bg-[#F4633A] px-4 py-10 text-white">
+      <section className="relative w-full overflow-hidden bg-[#F4633A] px-4 pb-14 pt-10 text-white">
         <div className="relative z-10 mx-auto max-w-6xl">
-          <div className="flex flex-col items-center gap-4 sm:flex-row sm:items-start sm:justify-between">
-            <div className="text-center sm:text-left">
-              <p className="text-sm font-semibold uppercase tracking-widest text-white/70">Disposable income</p>
-              <p className={["mt-1 text-5xl font-extrabold tracking-tight", disposablePositive ? "text-white" : "text-yellow-200"].join(" ")}>
-                {fmt(totals.disposable, currency)}
-              </p>
-              <p className="mt-1 text-sm font-medium text-white/60">{MONTH_NAMES[month - 1]} {year}</p>
-            </div>
+          {/* Top row: pill label + month selector */}
+          <div className="mb-4 flex items-center justify-between">
+            <span className="inline-flex items-center gap-1.5 rounded-full bg-white/15 px-3 py-1 text-xs font-bold uppercase tracking-widest text-white/80">
+              <svg className="h-3 w-3" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
+                <circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/>
+              </svg>
+              Disposable income
+            </span>
             <MonthSelector year={year} month={month} />
+          </div>
+
+          {/* Centered number */}
+          <div className="text-center">
+            <p className={["text-6xl font-extrabold tracking-tight tabular-nums", disposablePositive ? "text-white" : "text-yellow-200"].join(" ")}>
+              {fmt(totals.disposable, currency)}
+            </p>
+            <p className="mt-2 text-sm font-medium text-white/60">{MONTH_NAMES[month - 1]} {year}</p>
           </div>
         </div>
         <svg className="absolute bottom-0 left-0 w-full" viewBox="0 0 1440 60" preserveAspectRatio="none" aria-hidden>
@@ -115,7 +125,7 @@ export default async function DashboardPage({
             { label: "Expenses", value: -totals.expenses, positive: false },
             { label: "Savings", value: totals.savings, positive: totals.savings >= 0n },
           ].map(({ label, value, positive }) => (
-            <div key={label} className="rounded-2xl bg-white px-4 py-3 shadow-sm">
+            <div key={label} className="rounded-2xl bg-white px-4 py-3 shadow-[0_2px_12px_rgba(58,46,40,0.07)]">
               <p className="text-xs font-semibold text-[#3A2E28]/50">{label}</p>
               <p className={["mt-1 text-lg font-extrabold tabular-nums", positive ? "text-[#2D7A4F]" : "text-[#3A2E28]"].join(" ")}>
                 {fmt(value, currency)}
@@ -129,11 +139,11 @@ export default async function DashboardPage({
       <section className="mx-auto max-w-6xl px-4 pb-12">
         <div className="grid gap-6 lg:grid-cols-5">
           <div className="lg:col-span-3 space-y-6">
-            <div className="rounded-2xl bg-white p-6 shadow-sm">
+            <div className={card}>
               <h2 className="mb-4 text-base font-bold text-[#3A2E28]">Spending breakdown</h2>
               <DonutChart data={categoryBreakdown} currency={currency} />
             </div>
-            <div className="rounded-2xl bg-white p-6 shadow-sm">
+            <div className={card}>
               <h2 className="mb-4 text-base font-bold text-[#3A2E28]">Recent activity</h2>
               {expenses.length === 0 ? (
                 <p className="text-sm text-[#3A2E28]/40">No expenses this month yet</p>
@@ -143,11 +153,13 @@ export default async function DashboardPage({
                     <li key={e.id} className="flex items-center justify-between py-2.5">
                       <div>
                         <p className="text-sm font-semibold text-[#3A2E28]">{e.title}</p>
-                        <p className="text-xs text-[#3A2E28]/50">
+                        <p className="text-xs text-[#3A2E28]/45">
                           {e.category}{e.merchant ? ` · ${e.merchant}` : ""} · {new Date(e.expense_date).toLocaleDateString(undefined, { month: "short", day: "numeric" })}
                         </p>
                       </div>
-                      <span className="text-sm font-bold text-[#3A2E28] tabular-nums">{fmt(e.amount_minor, currency)}</span>
+                      <span className="text-sm font-bold tabular-nums text-[#F4633A]">
+                        −{fmt(e.amount_minor, currency)}
+                      </span>
                     </li>
                   ))}
                 </ul>
@@ -156,32 +168,31 @@ export default async function DashboardPage({
           </div>
 
           <div className="lg:col-span-2 space-y-6">
-            <div className="rounded-2xl bg-white p-6 shadow-sm">
-              <h2 className="mb-4 text-base font-bold text-[#3A2E28]">Monthly summary</h2>
-              <dl className="space-y-2">
+            <div className={card}>
+              <h2 className="mb-4 text-base font-bold text-[#3A2E28]">Month at a glance</h2>
+              <dl className="space-y-0 divide-y divide-[#3A2E28]/6">
                 {[
-                  { label: "Gross income", value: totals.grossIncome, sign: "" },
-                  { label: "Est. tax", value: totals.estimatedTax, sign: "−" },
-                  { label: "Fixed costs", value: totals.fixedCosts, sign: "−" },
-                  { label: "Expenses MTD", value: totals.expenses, sign: "−" },
-                ].map(({ label, value, sign }) => (
-                  <div key={label} className="flex items-center justify-between text-sm">
-                    <dt className="text-[#3A2E28]/60">{label}</dt>
-                    <dd className="font-bold tabular-nums text-[#3A2E28]">
-                      {sign && <span className="mr-0.5 text-[#3A2E28]/50">{sign}</span>}
-                      {fmt(value, currency)}
+                  { label: "Gross income",  value: totals.grossIncome,   color: "text-[#2D7A4F]",  prefix: ""  },
+                  { label: "Est. tax",       value: totals.estimatedTax,  color: "text-[#F4633A]",  prefix: "−" },
+                  { label: "Fixed costs",    value: totals.fixedCosts,    color: "text-[#F4633A]",  prefix: "−" },
+                  { label: "Expenses MTD",   value: totals.expenses,      color: "text-[#F4633A]",  prefix: "−" },
+                ].map(({ label, value, color, prefix }) => (
+                  <div key={label} className="flex items-center justify-between py-2.5 text-sm">
+                    <dt className="text-[#3A2E28]/55">{label}</dt>
+                    <dd className={["font-bold tabular-nums", color].join(" ")}>
+                      {prefix}{fmt(value, currency)}
                     </dd>
                   </div>
                 ))}
-                <div className="mt-3 flex items-center justify-between border-t border-[#3A2E28]/10 pt-3 text-sm">
-                  <dt className="font-bold text-[#3A2E28]">Disposable</dt>
-                  <dd className={["text-lg font-extrabold tabular-nums", disposablePositive ? "text-[#2D7A4F]" : "text-[#F4633A]"].join(" ")}>
-                    {fmt(totals.disposable, currency)}
+                <div className="flex items-center justify-between py-3 text-sm">
+                  <dt className="font-bold text-[#3A2E28]">Savings</dt>
+                  <dd className={["font-bold tabular-nums", totals.savings >= 0n ? "text-[#2D7A4F]" : "text-[#F4633A]"].join(" ")}>
+                    {fmt(totals.savings, currency)}
                   </dd>
                 </div>
               </dl>
             </div>
-            <div className="rounded-2xl bg-white p-6 shadow-sm">
+            <div className={card}>
               <h2 className="mb-4 text-base font-bold text-[#3A2E28]">Upcoming bills</h2>
               <UpcomingBills bills={upcomingBills} year={year} month={month} currency={currency} />
             </div>

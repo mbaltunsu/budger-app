@@ -43,34 +43,36 @@ export function UpcomingBills({ bills, year, month, currency }: UpcomingBillsPro
     );
   }
 
+  const today = new Date();
+
   return (
-    <ul className="space-y-3">
+    <ul className="space-y-3.5">
       {bills.map((bill) => {
         const progress = bill.due_day ? daysProgress(bill.due_day, year, month) : 0;
         const isPast = progress === 100;
+
+        let meta = "";
+        if (bill.due_day) {
+          const dueDate = new Date(year, month - 1, bill.due_day);
+          const daysLeft = Math.max(0, Math.ceil((dueDate.getTime() - today.getTime()) / 86_400_000));
+          const dateLabel = dueDate.toLocaleDateString(undefined, { month: "short", day: "numeric" });
+          const amtLabel = formatMinor(bill.amount_minor, currency);
+          meta = isPast ? `paid · ${dateLabel} · ${amtLabel}` : `${daysLeft}d · ${dateLabel} · ${amtLabel}`;
+        }
+
         return (
           <li key={bill.id}>
-            <div className="mb-1 flex items-center justify-between text-sm">
-              <span className="font-semibold text-[#3A2E28]">{bill.name}</span>
-              <span className="font-bold text-[#3A2E28]/80">
-                {formatMinor(bill.amount_minor, currency)}
+            <div className="mb-1.5 flex items-center justify-between gap-2">
+              <span className="text-sm font-semibold text-[#3A2E28]">{bill.name}</span>
+              <span className={["shrink-0 text-xs tabular-nums", isPast ? "text-[#2D7A4F]" : "text-[#3A2E28]/45"].join(" ")}>
+                {meta}
               </span>
             </div>
-            <div className="flex items-center gap-2">
-              <div className="relative h-2 flex-1 overflow-hidden rounded-full bg-[#F4633A]/15">
-                <div
-                  className={[
-                    "h-full rounded-full transition-all",
-                    isPast ? "bg-[#2D7A4F]" : "bg-[#F4633A]",
-                  ].join(" ")}
-                  style={{ width: `${progress}%` }}
-                />
-              </div>
-              {bill.due_day && (
-                <span className="shrink-0 text-xs text-[#3A2E28]/50">
-                  {isPast ? "paid?" : `due day ${bill.due_day}`}
-                </span>
-              )}
+            <div className="h-1.5 w-full overflow-hidden rounded-full bg-[#F4633A]/12">
+              <div
+                className={["h-full rounded-full transition-all", isPast ? "bg-[#2D7A4F]" : "bg-[#F4633A]"].join(" ")}
+                style={{ width: `${progress}%` }}
+              />
             </div>
           </li>
         );
