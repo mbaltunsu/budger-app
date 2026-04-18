@@ -2,8 +2,8 @@ import type { Metadata } from "next";
 
 export const metadata: Metadata = {
   title: {
-    default: "budgeto",
-    template: "%s | budgeto",
+    default: "budger",
+    template: "%s | budger",
   },
 };
 
@@ -22,7 +22,7 @@ export default function AuthLayout({
               b
             </span>
             <span className="text-2xl font-extrabold tracking-tight text-[#3A2E28]">
-              budgeto
+              budger
             </span>
           </div>
           <p className="text-sm text-[#3A2E28]/50">Your money, clearly.</p>

@@ -41,7 +41,7 @@ export function NavBar({ userName, userEmail }: NavBarProps) {
           <span className="flex h-8 w-8 items-center justify-center rounded-xl bg-[#F4633A] text-sm font-black text-white">
             b
           </span>
-          <span className="hidden text-lg sm:inline">budgeto</span>
+          <span className="hidden text-lg sm:inline">budger</span>
         </Link>
 
         {/* Nav links */}
