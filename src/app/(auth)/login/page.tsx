@@ -38,6 +38,16 @@ function LoginForm() {
     <>
       <h1 className="mb-6 text-xl font-semibold text-gray-900">Sign in</h1>
 
+      {process.env.NODE_ENV !== "production" && (
+        <button
+          type="button"
+          onClick={() => { setEmail("bengicana@gmail.com"); setPassword("123451234512"); }}
+          className="mb-4 w-full rounded-md border border-dashed border-gray-300 px-3 py-1.5 text-xs text-gray-400 hover:border-gray-400 hover:text-gray-600"
+        >
+          Dev: fill test account
+        </button>
+      )}
+
       {error && (
         <div className="mb-4 rounded-md bg-red-50 px-4 py-3 text-sm text-red-700">
           {error}

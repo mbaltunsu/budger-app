@@ -45,6 +45,7 @@ See [TEAM.md](TEAM.md) for the full agent roster.
 ### Installed Agents and Rules
 
 **Agents** (`.claude/agents/`):
+
 - api-designer.md — Use this agent when designing new APIs, creating API specifications, or refactoring existing API architecture for scalability and developer experience. Invoke when you need REST/GraphQL endpoint design, OpenAPI documentation, authentication patterns, or API versioning strategies.
 - code-reviewer.md — Use this agent when you need to conduct comprehensive code reviews focusing on code quality, security vulnerabilities, and best practices.
 - fintech-engineer.md — Use when building payment systems, financial integrations, or compliance-heavy financial applications that require secure transaction processing, regulatory adherence, and high transaction accuracy.

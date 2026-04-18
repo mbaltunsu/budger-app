@@ -2,13 +2,16 @@ import { betterAuth } from "better-auth";
 import { prismaAdapter } from "better-auth/adapters/prisma";
 import { prisma } from "@/lib/prisma";
 
-// Use || so that an empty string also falls back to BETTER_AUTH_URL
-const trustedOriginsEnv =
-  process.env["BETTER_AUTH_TRUSTED_ORIGINS"] ||
-  process.env["BETTER_AUTH_URL"] ||
-  "";
-export const trustedOrigins = trustedOriginsEnv
-  .split(",")
+const rawOrigins = [
+  process.env["BETTER_AUTH_TRUSTED_ORIGINS"] ?? "",
+  process.env["BETTER_AUTH_URL"] ?? "",
+  // Always trust localhost on common dev ports so port changes don't break auth
+  process.env["NODE_ENV"] !== "production" ? "http://localhost:3000" : "",
+  process.env["NODE_ENV"] !== "production" ? "http://localhost:3001" : "",
+  process.env["NODE_ENV"] !== "production" ? "http://localhost:3002" : "",
+];
+export const trustedOrigins = rawOrigins
+  .flatMap((s) => s.split(","))
   .map((s) => s.trim())
   .filter(Boolean);
 

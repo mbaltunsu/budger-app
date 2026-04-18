@@ -3,5 +3,6 @@
 import { createAuthClient } from "better-auth/react";
 
 export const authClient = createAuthClient({
-  baseURL: process.env["NEXT_PUBLIC_APP_URL"] ?? "",
+  // No baseURL — Better Auth uses window.location.origin in the browser,
+  // which is always same-origin and avoids CORS entirely.
 });
