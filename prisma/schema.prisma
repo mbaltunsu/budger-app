@@ -88,6 +88,8 @@ model User {
   subscriptions  Subscription[]
   expenses       Expense[]
   tax_profile    TaxProfile?
+  sessions       Session[]
+  accounts       Account[]
 
   @@map("users")
 }
@@ -217,4 +219,57 @@ model Category {
   order Int
 
   @@map("categories")
+}
+
+// ---------------------------------------------------------------------------
+// Better Auth — Session, Account, Verification
+// All columns snake_case with @map for consistency with the rest of the schema.
+// ---------------------------------------------------------------------------
+
+model Session {
+  id         String   @id @default(cuid())
+  user_id    String   @map("user_id")
+  token      String   @unique
+  expires_at DateTime @map("expires_at")
+  ip_address String?  @map("ip_address")
+  user_agent String?  @map("user_agent")
+  created_at DateTime @default(now()) @map("created_at") @db.Timestamptz
+  updated_at DateTime @updatedAt @map("updated_at") @db.Timestamptz
+
+  user User @relation(fields: [user_id], references: [id], onDelete: Cascade)
+
+  @@map("sessions")
+}
+
+model Account {
+  id                       String    @id @default(cuid())
+  user_id                  String    @map("user_id")
+  account_id               String    @map("account_id")
+  provider_id              String    @map("provider_id")
+  access_token             String?   @map("access_token")
+  refresh_token            String?   @map("refresh_token")
+  id_token                 String?   @map("id_token")
+  access_token_expires_at  DateTime? @map("access_token_expires_at")
+  refresh_token_expires_at DateTime? @map("refresh_token_expires_at")
+  scope                    String?
+  password                 String?
+  created_at               DateTime  @default(now()) @map("created_at") @db.Timestamptz
+  updated_at               DateTime  @updatedAt @map("updated_at") @db.Timestamptz
+
+  user User @relation(fields: [user_id], references: [id], onDelete: Cascade)
+
+  @@unique([provider_id, account_id])
+  @@map("accounts")
+}
+
+model Verification {
+  id         String   @id @default(cuid())
+  identifier String
+  value      String
+  expires_at DateTime @map("expires_at")
+  created_at DateTime @default(now()) @map("created_at") @db.Timestamptz
+  updated_at DateTime @updatedAt @map("updated_at") @db.Timestamptz
+
+  @@unique([identifier, value])
+  @@map("verifications")
 }
