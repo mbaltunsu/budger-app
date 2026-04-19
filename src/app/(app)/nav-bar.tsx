@@ -1,8 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { usePathname, useRouter } from "next/navigation";
-import { authClient } from "@/lib/auth-client";
+import { usePathname } from "next/navigation";
 
 const NAV_LINKS = [
   { href: "/dashboard", label: "Dashboard" },
@@ -21,18 +20,12 @@ interface NavBarProps {
 
 export function NavBar({ userName, userEmail }: NavBarProps) {
   const pathname = usePathname();
-  const router = useRouter();
 
   const initials = (userName ?? userEmail)
     .split(/[\s@]/)
     .slice(0, 2)
     .map((s) => s[0]?.toUpperCase() ?? "")
     .join("");
-
-  async function handleSignOut() {
-    await authClient.signOut();
-    router.push("/login");
-  }
 
   return (
     <header className="sticky top-0 z-30 w-full border-b border-[#F0E8E0] bg-white shadow-[0_8px_30px_rgba(180,130,90,0.06)]">
@@ -60,16 +53,16 @@ export function NavBar({ userName, userEmail }: NavBarProps) {
           ))}
         </nav>
 
-        {/* Avatar with gradient ring — signs out */}
-        <button
-          onClick={handleSignOut}
-          title="Sign out"
+        {/* Avatar — links to settings */}
+        <Link
+          href="/settings"
+          title="Settings"
           className="shrink-0 rounded-full bg-gradient-to-br from-[#F4633A] to-[#FFB548] p-[2px] transition-opacity hover:opacity-80"
         >
           <div className="flex h-8 w-8 items-center justify-center rounded-full bg-white text-xs font-bold text-[#F4633A]">
             {initials}
           </div>
-        </button>
+        </Link>
       </div>
     </header>
   );

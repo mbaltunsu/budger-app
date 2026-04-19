@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { updateUserProfile } from "@/lib/actions/user";
+import { authClient } from "@/lib/auth-client";
 
 interface Props {
   email: string;
@@ -16,6 +17,13 @@ const CURRENCIES = ["USD", "EUR", "GBP", "CAD", "AUD", "JPY", "CHF", "TRY", "INR
 export function SettingsForm({ email, fullName, currency, timezone }: Props) {
   const router = useRouter();
   const [saving, setSaving] = useState(false);
+  const [signingOut, setSigningOut] = useState(false);
+
+  async function handleSignOut() {
+    setSigningOut(true);
+    await authClient.signOut();
+    window.location.href = "/login";
+  }
   const [error, setError] = useState<string | null>(null);
   const [success, setSuccess] = useState(false);
 
@@ -86,6 +94,19 @@ export function SettingsForm({ email, fullName, currency, timezone }: Props) {
             <a href="/forgot-password" className="rounded-full border border-[#3A2E28]/20 px-4 py-1.5 text-xs font-bold text-[#3A2E28]/60 hover:bg-[#F4633A]/10 hover:text-[#F4633A] hover:border-[#F4633A]/30 transition-colors">
               Change
             </a>
+          </div>
+          <div className="flex items-center justify-between rounded-xl bg-[#FFFBF5] px-4 py-3">
+            <div>
+              <p className="text-sm font-semibold text-[#3A2E28]">Sign out</p>
+              <p className="text-xs text-[#3A2E28]/50">Sign out of your account</p>
+            </div>
+            <button
+              onClick={handleSignOut}
+              disabled={signingOut}
+              className="rounded-full border border-[#3A2E28]/20 px-4 py-1.5 text-xs font-bold text-[#3A2E28]/60 hover:bg-[#F4633A]/10 hover:text-[#F4633A] hover:border-[#F4633A]/30 transition-colors disabled:opacity-50"
+            >
+              {signingOut ? "Signing out…" : "Sign out"}
+            </button>
           </div>
           <div className="flex items-center justify-between rounded-xl bg-red-50 px-4 py-3">
             <div>
