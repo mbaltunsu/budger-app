@@ -28,21 +28,21 @@ export function MonthSelector({ year, month }: MonthSelectorProps) {
   }
 
   return (
-    <div className="flex items-center gap-3">
+    <div className="flex items-center gap-4">
       <button
         onClick={() => navigate(-1)}
         aria-label="Previous month"
-        className="flex h-8 w-8 items-center justify-center rounded-full bg-white/60 text-[#3A2E28]/60 shadow-sm hover:bg-white hover:text-[#F4633A] transition-colors"
+        className="flex h-9 w-9 items-center justify-center rounded-full bg-white text-[#3A2E28]/50 shadow-sm transition-all hover:bg-[#F4633A] hover:text-white active:scale-90"
       >
         ‹
       </button>
-      <span className="min-w-[140px] text-center text-sm font-bold text-white/90 tracking-wide">
+      <span className="min-w-[160px] text-center text-2xl font-extrabold tracking-tight text-[#3A2E28]">
         {MONTH_NAMES[month - 1]} {year}
       </span>
       <button
         onClick={() => navigate(1)}
         aria-label="Next month"
-        className="flex h-8 w-8 items-center justify-center rounded-full bg-white/60 text-[#3A2E28]/60 shadow-sm hover:bg-white hover:text-[#F4633A] transition-colors"
+        className="flex h-9 w-9 items-center justify-center rounded-full bg-white text-[#3A2E28]/50 shadow-sm transition-all hover:bg-[#F4633A] hover:text-white active:scale-90"
       >
         ›
       </button>

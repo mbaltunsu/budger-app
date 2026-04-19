@@ -88,61 +88,43 @@ export default async function DashboardPage({
 
   return (
     <>
-      {/* Hero band */}
-      <section className="relative w-full overflow-hidden bg-[#F4633A] px-4 pb-14 pt-10 text-white">
-        <div className="relative z-10 mx-auto max-w-6xl">
-          {/* Top row: pill label + month selector */}
-          <div className="mb-4 flex items-center justify-between">
+      {/* Month selector — above hero, centered */}
+      <div className="flex items-center justify-center pt-8 pb-5">
+        <MonthSelector year={year} month={month} />
+      </div>
+
+      {/* Hero card — contained rectangle, wave only at bottom border */}
+      <div className="mx-auto max-w-6xl px-4">
+        <section className="relative overflow-hidden rounded-2xl bg-[#F4633A] px-8 pb-20 pt-8 text-white shadow-lg">
+          <div className="relative z-10">
             <span className="inline-flex items-center gap-1.5 rounded-full bg-white/15 px-3 py-1 text-xs font-bold uppercase tracking-widest text-white/80">
               <svg className="h-3 w-3" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
                 <circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/>
               </svg>
               Disposable income
             </span>
-            <MonthSelector year={year} month={month} />
-          </div>
-
-          {/* Centered number */}
-          <div className="text-center">
-            <p className={["text-6xl font-extrabold tracking-tight tabular-nums", disposablePositive ? "text-white" : "text-yellow-200"].join(" ")}>
+            <p className={["mt-3 text-6xl font-extrabold tracking-tight tabular-nums", disposablePositive ? "text-white" : "text-yellow-200"].join(" ")}>
               {fmt(totals.disposable, currency)}
             </p>
-            <p className="mt-2 text-sm font-medium text-white/60">{MONTH_NAMES[month - 1]} {year}</p>
           </div>
-        </div>
-        <svg className="absolute bottom-0 left-0 w-full" viewBox="0 0 1440 88" preserveAspectRatio="none" aria-hidden>
-          <path d="M0,52 C120,88 240,16 400,48 C560,80 680,8 840,44 C1000,80 1120,12 1280,46 C1360,62 1410,36 1440,28 L1440,88 L0,88 Z" fill="#FFFBF5" />
-        </svg>
-      </section>
 
-      {/* Summary strip */}
-      <section className="mx-auto max-w-6xl px-4 py-6">
-        <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-5">
-          {[
-            { label: "Gross income", value: totals.grossIncome, positive: true },
-            { label: "Est. tax", value: -totals.estimatedTax, positive: false },
-            { label: "Fixed costs", value: -totals.fixedCosts, positive: false },
-            { label: "Expenses", value: -totals.expenses, positive: false },
-            { label: "Savings", value: totals.savings, positive: totals.savings >= 0n },
-          ].map(({ label, value, positive }) => (
-            <div key={label} className="rounded-2xl bg-white px-4 py-3 shadow-[0_2px_12px_rgba(58,46,40,0.07)]">
-              <p className="text-xs font-semibold text-[#3A2E28]/50">{label}</p>
-              <p className={["mt-1 text-lg font-extrabold tabular-nums", positive ? "text-[#2D7A4F]" : "text-[#3A2E28]"].join(" ")}>
-                {fmt(value, currency)}
-              </p>
-            </div>
-          ))}
-        </div>
-      </section>
+          {/* Wave — bottom border only */}
+          <svg className="absolute bottom-0 left-0 w-full" viewBox="0 0 1440 88" preserveAspectRatio="none" aria-hidden>
+            <path d="M0,52 C120,88 240,16 400,48 C560,80 680,8 840,44 C1000,80 1120,12 1280,46 C1360,62 1410,36 1440,28 L1440,88 L0,88 Z" fill="#FFFBF5" />
+          </svg>
+        </section>
+      </div>
 
-      {/* Main two-column */}
-      <section className="mx-auto max-w-6xl px-4 pb-12">
+      {/* Main two-column grid — directly below hero, no summary strip */}
+      <section className="mx-auto max-w-6xl px-4 py-6 pb-12">
         <div className="grid gap-6 lg:grid-cols-5">
+          {/* Left column */}
           <div className="lg:col-span-3 space-y-6">
             <div className={card}>
               <h2 className="mb-4 text-base font-bold text-[#3A2E28]">Spending breakdown</h2>
               <DonutChart data={categoryBreakdown} currency={currency} />
             </div>
+
             <div className={card}>
               <h2 className="mb-4 text-base font-bold text-[#3A2E28]">Recent activity</h2>
               {expenses.length === 0 ? (
@@ -167,6 +149,7 @@ export default async function DashboardPage({
             </div>
           </div>
 
+          {/* Right column */}
           <div className="lg:col-span-2 space-y-6">
             <div className={card}>
               <h2 className="mb-4 text-base font-bold text-[#3A2E28]">Month at a glance</h2>
@@ -192,6 +175,7 @@ export default async function DashboardPage({
                 </div>
               </dl>
             </div>
+
             <div className={card}>
               <h2 className="mb-4 text-base font-bold text-[#3A2E28]">Upcoming bills</h2>
               <UpcomingBills bills={upcomingBills} year={year} month={month} currency={currency} />
