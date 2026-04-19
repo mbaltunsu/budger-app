@@ -103,7 +103,7 @@ export default async function DashboardPage({
               </svg>
               Disposable income
             </span>
-            <p className={["mt-3 text-6xl font-extrabold tracking-tight tabular-nums", disposablePositive ? "text-white" : "text-yellow-200"].join(" ")}>
+            <p className={["font-nunito mt-3 text-6xl font-extrabold tracking-tight tabular-nums", disposablePositive ? "text-white" : "text-yellow-200"].join(" ")}>
               {fmt(totals.disposable, currency)}
             </p>
           </div>
@@ -162,14 +162,14 @@ export default async function DashboardPage({
                 ].map(({ label, value, color, prefix }) => (
                   <div key={label} className="flex items-center justify-between py-2.5 text-sm">
                     <dt className="text-[#3A2E28]/55">{label}</dt>
-                    <dd className={["font-bold tabular-nums", color].join(" ")}>
+                    <dd className={["font-nunito font-bold tabular-nums", color].join(" ")}>
                       {prefix}{fmt(value, currency)}
                     </dd>
                   </div>
                 ))}
                 <div className="flex items-center justify-between py-3 text-sm">
                   <dt className="font-bold text-[#3A2E28]">Savings</dt>
-                  <dd className={["font-bold tabular-nums", totals.savings >= 0n ? "text-[#2D7A4F]" : "text-[#F4633A]"].join(" ")}>
+                  <dd className={["font-nunito font-bold tabular-nums", totals.savings >= 0n ? "text-[#2D7A4F]" : "text-[#F4633A]"].join(" ")}>
                     {fmt(totals.savings, currency)}
                   </dd>
                 </div>

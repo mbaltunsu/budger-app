@@ -36,7 +36,7 @@ export function MonthSelector({ year, month }: MonthSelectorProps) {
       >
         ‹
       </button>
-      <span className="min-w-[160px] text-center text-2xl font-extrabold tracking-tight text-[#3A2E28]">
+      <span className="font-nunito min-w-[160px] text-center text-2xl font-extrabold tracking-tight text-[#3A2E28]">
         {MONTH_NAMES[month - 1]} {year}
       </span>
       <button

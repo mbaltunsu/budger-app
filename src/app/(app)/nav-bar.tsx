@@ -50,7 +50,7 @@ export function NavBar({ userName, userEmail }: NavBarProps) {
     <header className="sticky top-0 z-30 w-full border-b border-[#F0E8E0] bg-white shadow-[0_8px_30px_rgba(180,130,90,0.06)]">
       <div className="mx-auto flex max-w-6xl items-center justify-between px-6 py-3">
         {/* Logo */}
-        <Link href="/dashboard" className="shrink-0 text-2xl font-extrabold text-[#F4633A]">
+        <Link href="/dashboard" className="font-nunito shrink-0 text-2xl font-extrabold text-[#F4633A]">
           budger
         </Link>
 
