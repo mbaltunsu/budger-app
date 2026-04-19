@@ -84,7 +84,7 @@ export default async function DashboardPage({
 
   const disposablePositive = totals.disposable >= 0n;
 
-  const card = "rounded-2xl bg-white p-6 shadow-[0_2px_12px_rgba(58,46,40,0.07)]";
+  const card = "rounded-2xl bg-[#FEF9F4] p-6 shadow-[0_2px_12px_rgba(58,46,40,0.07)]";
 
   return (
     <>

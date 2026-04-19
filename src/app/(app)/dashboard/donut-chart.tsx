@@ -39,7 +39,7 @@ function CustomTooltip({ active, payload }: TooltipProps) {
   if (!active || !payload?.[0]) return null;
   const item = payload[0];
   return (
-    <div className="rounded-xl bg-white px-3 py-2 text-xs font-semibold shadow-lg">
+    <div className="rounded-xl bg-[#FEF9F4] px-3 py-2 text-xs font-semibold shadow-lg">
       <div className="text-[#3A2E28]/70">{formatLabel(item.name)}</div>
       <div className="text-[#3A2E28]">{formatMinor(item.payload.totalMinor, "USD")}</div>
     </div>

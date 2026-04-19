@@ -53,7 +53,7 @@ export function NavBar({ userName, userEmail }: NavBarProps) {
 
   return (
     <>
-      <header className="sticky top-0 z-30 w-full border-b border-[#F0E8E0] bg-white shadow-[0_8px_30px_rgba(180,130,90,0.06)]">
+      <header className="sticky top-0 z-30 w-full border-b border-[#F0E8E0] bg-[#FEF9F4] shadow-[0_8px_30px_rgba(180,130,90,0.06)]">
         <div className="mx-auto flex max-w-6xl items-center justify-between px-6 py-3">
           {/* Logo */}
           <Link href="/dashboard" className="font-nunito shrink-0 text-2xl font-extrabold text-[#F4633A]">
@@ -110,13 +110,13 @@ export function NavBar({ userName, userEmail }: NavBarProps) {
                 aria-label="Account menu"
                 aria-expanded={avatarOpen}
               >
-                <div className="flex h-8 w-8 items-center justify-center rounded-full bg-white text-xs font-bold text-[#F4633A]">
+                <div className="flex h-8 w-8 items-center justify-center rounded-full bg-[#FEF9F4] text-xs font-bold text-[#F4633A]">
                   {initials}
                 </div>
               </button>
 
               {avatarOpen && (
-                <div className="absolute right-0 mt-2 w-52 rounded-2xl bg-white py-1.5 shadow-[0_8px_30px_rgba(58,46,40,0.12)] border border-[#F0E8E0]">
+                <div className="absolute right-0 mt-2 w-52 rounded-2xl bg-[#FEF9F4] py-1.5 shadow-[0_8px_30px_rgba(58,46,40,0.12)] border border-[#F0E8E0]">
                   <div className="px-4 py-2.5 border-b border-[#F0E8E0]">
                     {userName && <p className="text-sm font-bold text-[#3A2E28] truncate">{userName}</p>}
                     <p className="text-xs text-[#3A2E28]/45 truncate">{userEmail}</p>
@@ -150,7 +150,7 @@ export function NavBar({ userName, userEmail }: NavBarProps) {
 
       {/* Mobile slide-down menu */}
       {menuOpen && (
-        <div className="menu-slide-down md:hidden fixed inset-x-0 top-[57px] z-20 border-b border-[#F0E8E0] bg-white shadow-[0_8px_30px_rgba(58,46,40,0.10)]">
+        <div className="menu-slide-down md:hidden fixed inset-x-0 top-[57px] z-20 border-b border-[#F0E8E0] bg-[#FEF9F4] shadow-[0_8px_30px_rgba(58,46,40,0.10)]">
           <nav className="flex flex-col px-4 py-3 gap-1">
             {NAV_LINKS.map(({ href, label }) => (
               <Link

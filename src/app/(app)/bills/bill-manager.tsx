@@ -22,6 +22,9 @@ export function BillManager({ bills, currency }: Props) {
   const [editing, setEditing] = useState<Bill | null>(null);
   const [saving, setSaving] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [activeIds, setActiveIds] = useState<Set<string>>(
+    () => new Set(bills.filter((b) => b.active).map((b) => b.id))
+  );
 
   function openAdd() { setEditing(null); setError(null); setOpen(true); }
   function openEdit(b: Bill) { setEditing(b); setError(null); setOpen(true); }
@@ -51,11 +54,17 @@ export function BillManager({ bills, currency }: Props) {
   }
 
   async function handleToggle(b: Bill) {
-    await updateBill(b.id, { active: !b.active });
+    const newActive = !activeIds.has(b.id);
+    setActiveIds((prev) => {
+      const next = new Set(prev);
+      if (newActive) next.add(b.id); else next.delete(b.id);
+      return next;
+    });
+    await updateBill(b.id, { active: newActive });
     router.refresh();
   }
 
-  const activeTotal = bills.filter((b) => b.active).reduce((s, b) => s + Number(b.amount_minor), 0);
+  const activeTotal = bills.filter((b) => activeIds.has(b.id)).reduce((s, b) => s + Number(b.amount_minor), 0);
 
   return (
     <main className="mx-auto max-w-4xl px-4 py-8">
@@ -70,7 +79,7 @@ export function BillManager({ bills, currency }: Props) {
         <p className="mt-1 text-3xl font-extrabold">{formatAmt(String(activeTotal), currency)}</p>
       </div>
 
-      <div className="rounded-2xl bg-white shadow-sm overflow-hidden">
+      <div className="rounded-2xl bg-[#FEF9F4] shadow-sm overflow-hidden">
         {bills.length === 0 ? (
           <div className="flex flex-col items-center justify-center py-16 text-[#3A2E28]/30">
             <p className="text-4xl mb-2">🧾</p>
@@ -79,11 +88,12 @@ export function BillManager({ bills, currency }: Props) {
         ) : (
           <ul className="divide-y divide-[#3A2E28]/5">
             {bills.map((b) => (
-              <li key={b.id} className={["group flex items-center justify-between px-5 py-4", !b.active ? "opacity-50" : ""].join(" ")}>
+              <li key={b.id} className={["group flex items-center justify-between px-5 py-4", !activeIds.has(b.id) ? "opacity-50" : ""].join(" ")}>
                 <div className="flex items-center gap-3">
                   <button onClick={() => handleToggle(b)}
-                    className={["h-5 w-9 rounded-full transition-colors relative", b.active ? "bg-[#F4633A]" : "bg-[#3A2E28]/20"].join(" ")}>
-                    <span className={["absolute top-0.5 h-4 w-4 rounded-full bg-white shadow transition-transform", b.active ? "translate-x-4" : "translate-x-0.5"].join(" ")} />
+                    aria-label={activeIds.has(b.id) ? "Deactivate" : "Activate"}
+                    className={["flex items-center h-6 w-11 shrink-0 rounded-full px-[2px] transition-colors duration-200 cursor-pointer", activeIds.has(b.id) ? "bg-[#F4633A]" : "bg-[#3A2E28]/20"].join(" ")}>
+                    <span className={["h-5 w-5 shrink-0 rounded-full bg-white shadow-sm transition-transform duration-200", activeIds.has(b.id) ? "translate-x-5" : "translate-x-0"].join(" ")} />
                   </button>
                   <div>
                     <p className="text-sm font-semibold text-[#3A2E28]">{b.name}</p>
@@ -107,7 +117,7 @@ export function BillManager({ bills, currency }: Props) {
 
       {open && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-[#3A2E28]/20 backdrop-blur-sm" onClick={close}>
-          <div className="relative w-full max-w-md rounded-3xl bg-white p-8 shadow-2xl" onClick={(e) => e.stopPropagation()}>
+          <div className="relative w-full max-w-md rounded-3xl bg-[#FEF9F4] p-8 shadow-2xl" onClick={(e) => e.stopPropagation()}>
             <div className="mb-6 flex items-center justify-between">
               <h2 className="text-xl font-extrabold text-[#3A2E28]">{editing ? "Edit Bill" : "Add Bill"}</h2>
               <button onClick={close} className="text-[#3A2E28]/30 hover:text-[#3A2E28] text-xl">✕</button>

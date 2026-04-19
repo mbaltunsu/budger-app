@@ -49,7 +49,7 @@ function LoginForm() {
       {process.env.NODE_ENV !== "production" && (
         <button
           type="button"
-          onClick={() => { setEmail("bengicana@gmail.com"); setPassword("123451234512"); }}
+          onClick={() => { setEmail("dev@budger.app"); setPassword("budger-dev-2026"); }}
           className="mb-4 w-full rounded-xl border border-dashed border-[#3A2E28]/20 px-3 py-2 text-xs text-[#3A2E28]/40 transition-colors hover:border-[#F4633A]/40 hover:text-[#F4633A]/60"
         >
           Dev: fill test account

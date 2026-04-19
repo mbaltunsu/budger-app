@@ -15,14 +15,14 @@ export default function SubscriptionsLoading() {
           <Sk className="h-3 w-36 bg-[#F4633A]/30 rounded-full" />
           <Sk className="h-9 w-28 bg-[#F4633A]/30 rounded-xl" />
         </div>
-        <div className="rounded-2xl bg-white shadow-sm px-6 py-4 space-y-2">
+        <div className="rounded-2xl bg-[#FEF9F4] shadow-sm px-6 py-4 space-y-2">
           <Sk className="h-3 w-36 rounded-full" />
           <Sk className="h-9 w-12 rounded-xl" />
         </div>
       </div>
 
       {/* List */}
-      <div className="rounded-2xl bg-white shadow-sm overflow-hidden">
+      <div className="rounded-2xl bg-[#FEF9F4] shadow-sm overflow-hidden">
         <ul className="divide-y divide-[#3A2E28]/5">
           {Array.from({ length: 6 }).map((_, i) => (
             <li key={i} className="flex items-center justify-between px-5 py-4">

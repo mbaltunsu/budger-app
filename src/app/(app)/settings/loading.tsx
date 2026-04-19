@@ -15,7 +15,7 @@ export default function SettingsLoading() {
       <Sk className="mb-6 h-8 w-24" />
 
       {/* Profile card */}
-      <div className="mb-6 rounded-2xl bg-white p-6 shadow-sm space-y-5">
+      <div className="mb-6 rounded-2xl bg-[#FEF9F4] p-6 shadow-sm space-y-5">
         <Sk className="h-4 w-16" />
         <FormFieldSk />
         <FormFieldSk />
@@ -25,7 +25,7 @@ export default function SettingsLoading() {
       </div>
 
       {/* Account card */}
-      <div className="rounded-2xl bg-white p-6 shadow-sm">
+      <div className="rounded-2xl bg-[#FEF9F4] p-6 shadow-sm">
         <Sk className="h-4 w-20 mb-5" />
         <div className="space-y-3">
           {Array.from({ length: 2 }).map((_, i) => (

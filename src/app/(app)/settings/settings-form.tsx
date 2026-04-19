@@ -46,7 +46,7 @@ export function SettingsForm({ email, fullName, currency, timezone }: Props) {
       <h1 className="mb-6 text-2xl font-extrabold text-[#3A2E28]">Settings</h1>
 
       {/* Profile */}
-      <div className="mb-6 rounded-2xl bg-white p-6 shadow-sm">
+      <div className="mb-6 rounded-2xl bg-[#FEF9F4] p-6 shadow-sm">
         <h2 className="mb-4 text-base font-bold text-[#3A2E28]">Profile</h2>
 
         {error && <p className="mb-4 rounded-xl bg-red-50 px-4 py-2 text-sm text-red-600">{error}</p>}
@@ -83,7 +83,7 @@ export function SettingsForm({ email, fullName, currency, timezone }: Props) {
       </div>
 
       {/* Account */}
-      <div className="rounded-2xl bg-white p-6 shadow-sm">
+      <div className="rounded-2xl bg-[#FEF9F4] p-6 shadow-sm">
         <h2 className="mb-4 text-base font-bold text-[#3A2E28]">Account</h2>
         <div className="space-y-3">
           <div className="flex items-center justify-between rounded-xl bg-[#FFFBF5] px-4 py-3">

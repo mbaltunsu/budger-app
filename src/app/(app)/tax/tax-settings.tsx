@@ -47,7 +47,7 @@ export function TaxSettings({ taxProfile, grossMonthlyMinor, estimatedTaxMinor, 
 
       {/* Live preview cards */}
       <div className="mb-8 grid grid-cols-3 gap-3">
-        <div className="rounded-2xl bg-white px-4 py-4 shadow-sm">
+        <div className="rounded-2xl bg-[#FEF9F4] px-4 py-4 shadow-sm">
           <p className="text-xs font-bold uppercase tracking-widest text-[#3A2E28]/50">Gross income</p>
           <p className="mt-1 text-lg font-extrabold text-[#2D7A4F] tabular-nums">{formatAmt(grossMonthlyMinor, currency)}</p>
           <p className="text-xs text-[#3A2E28]/40">per month</p>
@@ -57,7 +57,7 @@ export function TaxSettings({ taxProfile, grossMonthlyMinor, estimatedTaxMinor, 
           <p className="mt-1 text-lg font-extrabold tabular-nums">{formatAmt(liveTax, currency)}</p>
           <p className="text-xs text-white/60">per month</p>
         </div>
-        <div className="rounded-2xl bg-white px-4 py-4 shadow-sm">
+        <div className="rounded-2xl bg-[#FEF9F4] px-4 py-4 shadow-sm">
           <p className="text-xs font-bold uppercase tracking-widest text-[#3A2E28]/50">After tax</p>
           <p className="mt-1 text-lg font-extrabold text-[#3A2E28] tabular-nums">{formatAmt(grossMonthlyMinor - liveTax, currency)}</p>
           <p className="text-xs text-[#3A2E28]/40">per month</p>
@@ -65,7 +65,7 @@ export function TaxSettings({ taxProfile, grossMonthlyMinor, estimatedTaxMinor, 
       </div>
 
       {/* Form */}
-      <div className="rounded-2xl bg-white p-6 shadow-sm">
+      <div className="rounded-2xl bg-[#FEF9F4] p-6 shadow-sm">
         <h2 className="mb-1 text-base font-bold text-[#3A2E28]">Manual tax rate</h2>
         <p className="mb-5 text-sm text-[#3A2E28]/50">Enter your effective tax rate. This is used to estimate monthly tax withholding.</p>
 

@@ -16,7 +16,7 @@ export default function BillsLoading() {
       </div>
 
       {/* List */}
-      <div className="rounded-2xl bg-white shadow-sm overflow-hidden">
+      <div className="rounded-2xl bg-[#FEF9F4] shadow-sm overflow-hidden">
         <ul className="divide-y divide-[#3A2E28]/5">
           {Array.from({ length: 6 }).map((_, i) => (
             <li key={i} className="flex items-center justify-between px-5 py-4">

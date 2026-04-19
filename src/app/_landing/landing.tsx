@@ -218,29 +218,63 @@ function FloatingBlobs() {
 /* ─── Nav ─────────────────────────────────────────────────────────────────── */
 function Nav() {
   const [scrolled, setScrolled] = useState(false);
+  const [menuOpen, setMenuOpen] = useState(false);
   useEffect(() => {
     const h = () => setScrolled(window.scrollY > 20);
     window.addEventListener("scroll", h, { passive: true });
     return () => window.removeEventListener("scroll", h);
   }, []);
   return (
-    <header className={`fixed top-0 z-50 w-full transition-all duration-300 ${scrolled ? "bg-[#FFFBF5]/95 shadow-[0_2px_12px_rgba(58,46,40,0.08)] backdrop-blur" : "bg-transparent"}`}>
-      <div className="mx-auto flex max-w-6xl items-center justify-between px-6 py-4">
-        <Link href="/" className="flex items-center gap-2.5 font-extrabold text-[#3A2E28]">
-          <span className="flex h-8 w-8 items-center justify-center rounded-xl bg-[#F4633A] text-sm font-black text-white">b</span>
-          <span className="text-lg">budger</span>
-        </Link>
-        <nav className="hidden items-center gap-6 text-sm font-semibold text-[#3A2E28]/60 md:flex">
-          <a href="#features" className="hover:text-[#F4633A] transition-colors">Features</a>
-          <a href="#preview"  className="hover:text-[#F4633A] transition-colors">Preview</a>
-          <a href="#pricing"  className="hover:text-[#F4633A] transition-colors">Pricing</a>
-          <Link href="/login" className="hover:text-[#F4633A] transition-colors">Sign in</Link>
-        </nav>
-        <Link href="/signup" className="rounded-full bg-[#F4633A] px-5 py-2 text-sm font-bold text-white hover:opacity-90 transition-opacity shadow-[0_4px_14px_rgba(244,99,58,0.35)]">
-          Get started free
-        </Link>
-      </div>
-    </header>
+    <>
+      <header className={`fixed top-0 z-50 w-full transition-all duration-300 ${scrolled || menuOpen ? "bg-[#FFFBF5]/95 shadow-[0_2px_12px_rgba(58,46,40,0.08)] backdrop-blur" : "bg-transparent"}`}>
+        <div className="mx-auto flex max-w-6xl items-center justify-between px-6 py-4">
+          <Link href="/" className="flex items-center gap-2.5 font-extrabold text-[#3A2E28]">
+            <span className="flex h-8 w-8 items-center justify-center rounded-xl bg-[#F4633A] text-sm font-black text-white">b</span>
+            <span className="text-lg">budger</span>
+          </Link>
+
+          {/* Desktop nav links */}
+          <nav className="hidden items-center gap-6 text-sm font-semibold text-[#3A2E28]/60 md:flex">
+            <a href="#features" className="hover:text-[#F4633A] transition-colors">Features</a>
+            <a href="#preview"  className="hover:text-[#F4633A] transition-colors">Preview</a>
+            <Link href="/login" className="hover:text-[#F4633A] transition-colors">Sign in</Link>
+          </nav>
+
+          <div className="flex items-center gap-2">
+            <Link href="/login" className="rounded-full bg-[#F4633A] px-5 py-2 text-sm font-bold text-white hover:opacity-90 transition-opacity shadow-[0_4px_14px_rgba(244,99,58,0.35)]">
+              Get started free
+            </Link>
+            {/* Hamburger — mobile only */}
+            <button
+              className="md:hidden flex h-9 w-9 items-center justify-center rounded-xl text-[#3A2E28]/70 hover:bg-[#3A2E28]/8 transition-colors"
+              onClick={() => setMenuOpen((v) => !v)}
+              aria-label="Toggle menu"
+            >
+              {menuOpen ? (
+                <svg className="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round">
+                  <line x1="18" y1="6" x2="6" y2="18" /><line x1="6" y1="6" x2="18" y2="18" />
+                </svg>
+              ) : (
+                <svg className="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round">
+                  <line x1="3" y1="6" x2="21" y2="6" /><line x1="3" y1="12" x2="21" y2="12" /><line x1="3" y1="18" x2="21" y2="18" />
+                </svg>
+              )}
+            </button>
+          </div>
+        </div>
+
+        {/* Mobile dropdown */}
+        {menuOpen && (
+          <div className="md:hidden border-t border-[#3A2E28]/8 bg-[#FFFBF5]/95 px-6 pb-4">
+            <nav className="flex flex-col gap-1 pt-2">
+              <a href="#features" onClick={() => setMenuOpen(false)} className="rounded-xl px-4 py-3 text-sm font-semibold text-[#3A2E28]/70 hover:bg-[#F4633A]/8 hover:text-[#F4633A] transition-colors">Features</a>
+              <a href="#preview"  onClick={() => setMenuOpen(false)} className="rounded-xl px-4 py-3 text-sm font-semibold text-[#3A2E28]/70 hover:bg-[#F4633A]/8 hover:text-[#F4633A] transition-colors">Preview</a>
+              <Link href="/login" onClick={() => setMenuOpen(false)} className="rounded-xl px-4 py-3 text-sm font-semibold text-[#3A2E28]/70 hover:bg-[#F4633A]/8 hover:text-[#F4633A] transition-colors">Sign in</Link>
+            </nav>
+          </div>
+        )}
+      </header>
+    </>
   );
 }
 
@@ -276,7 +310,7 @@ function Hero() {
             </p>
 
             <div className="flex flex-wrap items-center gap-3">
-              <Link href="/signup" className="group relative inline-flex items-center gap-2 overflow-hidden rounded-full bg-[#F4633A] px-7 py-3.5 text-sm font-bold text-white shadow-[0_6px_24px_rgba(244,99,58,0.38)] transition-all hover:shadow-[0_8px_32px_rgba(244,99,58,0.5)] hover:-translate-y-0.5">
+              <Link href="/login" className="group relative inline-flex items-center gap-2 overflow-hidden rounded-full bg-[#F4633A] px-7 py-3.5 text-sm font-bold text-white shadow-[0_6px_24px_rgba(244,99,58,0.38)] transition-all hover:shadow-[0_8px_32px_rgba(244,99,58,0.5)] hover:-translate-y-0.5">
                 Get started — it&apos;s free
                 <svg className="h-4 w-4 transition-transform group-hover:translate-x-0.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
               </Link>
@@ -591,7 +625,7 @@ function Pricing() {
 
               {/* CTA */}
               <Link
-                href="/signup"
+                href="/login"
                 className={[
                   "mb-7 rounded-full py-3 text-center text-sm font-bold transition-all duration-200 hover:-translate-y-0.5",
                   dark
@@ -669,7 +703,7 @@ function CTA() {
             Sign up in 30 seconds. No bank connection. No credit card.
           </p>
 
-          <Link href="/signup" className="group inline-flex items-center gap-2 rounded-full bg-white px-8 py-4 text-base font-bold text-[#F4633A] shadow-[0_8px_32px_rgba(0,0,0,0.15)] transition-all hover:shadow-[0_12px_40px_rgba(0,0,0,0.2)] hover:-translate-y-1">
+          <Link href="/login" className="group inline-flex items-center gap-2 rounded-full bg-white px-8 py-4 text-base font-bold text-[#F4633A] shadow-[0_8px_32px_rgba(0,0,0,0.15)] transition-all hover:shadow-[0_12px_40px_rgba(0,0,0,0.2)] hover:-translate-y-1">
             Get started free
             <svg className="h-5 w-5 transition-transform group-hover:translate-x-0.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M5 12h14M12 5l7 7-7 7" /></svg>
           </Link>

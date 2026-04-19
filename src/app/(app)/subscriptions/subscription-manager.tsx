@@ -25,6 +25,9 @@ export function SubscriptionManager({ subscriptions, currency }: Props) {
   const [editing, setEditing] = useState<Subscription | null>(null);
   const [saving, setSaving] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [activeIds, setActiveIds] = useState<Set<string>>(
+    () => new Set(subscriptions.filter((s) => s.active).map((s) => s.id))
+  );
 
   function openAdd() { setEditing(null); setError(null); setOpen(true); }
   function openEdit(s: Subscription) { setEditing(s); setError(null); setOpen(true); }
@@ -56,15 +59,21 @@ export function SubscriptionManager({ subscriptions, currency }: Props) {
   }
 
   async function handleToggle(s: Subscription) {
-    await updateSubscription(s.id, { active: !s.active });
+    const newActive = !activeIds.has(s.id);
+    setActiveIds((prev) => {
+      const next = new Set(prev);
+      if (newActive) next.add(s.id); else next.delete(s.id);
+      return next;
+    });
+    await updateSubscription(s.id, { active: newActive });
     router.refresh();
   }
 
   const activeMonthly = subscriptions
-    .filter((s) => s.active && s.billing_cycle === "MONTHLY")
+    .filter((s) => activeIds.has(s.id) && s.billing_cycle === "MONTHLY")
     .reduce((sum, s) => sum + Number(s.amount_minor), 0);
   const activeYearly = subscriptions
-    .filter((s) => s.active && s.billing_cycle === "YEARLY")
+    .filter((s) => activeIds.has(s.id) && s.billing_cycle === "YEARLY")
     .reduce((sum, s) => sum + Number(s.amount_minor), 0);
   const totalMonthly = activeMonthly + Math.round(activeYearly / 12);
 
@@ -83,13 +92,13 @@ export function SubscriptionManager({ subscriptions, currency }: Props) {
           <p className="text-xs font-bold uppercase tracking-widest text-white/70">Monthly equivalent</p>
           <p className="mt-1 text-3xl font-extrabold">{formatAmt(String(totalMonthly), currency)}</p>
         </div>
-        <div className="rounded-2xl bg-white px-6 py-4 shadow-sm">
+        <div className="rounded-2xl bg-[#FEF9F4] px-6 py-4 shadow-sm">
           <p className="text-xs font-bold uppercase tracking-widest text-[#3A2E28]/50">Active subscriptions</p>
-          <p className="mt-1 text-3xl font-extrabold text-[#3A2E28]">{subscriptions.filter((s) => s.active).length}</p>
+          <p className="mt-1 text-3xl font-extrabold text-[#3A2E28]">{subscriptions.filter((s) => activeIds.has(s.id)).length}</p>
         </div>
       </div>
 
-      <div className="rounded-2xl bg-white shadow-sm overflow-hidden">
+      <div className="rounded-2xl bg-[#FEF9F4] shadow-sm overflow-hidden">
         {subscriptions.length === 0 ? (
           <div className="flex flex-col items-center justify-center py-16 text-[#3A2E28]/30">
             <p className="text-4xl mb-2">📦</p>
@@ -98,11 +107,12 @@ export function SubscriptionManager({ subscriptions, currency }: Props) {
         ) : (
           <ul className="divide-y divide-[#3A2E28]/5">
             {subscriptions.map((s) => (
-              <li key={s.id} className={["group flex items-center justify-between px-5 py-4", !s.active ? "opacity-50" : ""].join(" ")}>
+              <li key={s.id} className={["group flex items-center justify-between px-5 py-4", !activeIds.has(s.id) ? "opacity-50" : ""].join(" ")}>
                 <div className="flex items-center gap-3">
                   <button onClick={() => handleToggle(s)}
-                    className={["h-5 w-9 rounded-full transition-colors relative", s.active ? "bg-[#F4633A]" : "bg-[#3A2E28]/20"].join(" ")}>
-                    <span className={["absolute top-0.5 h-4 w-4 rounded-full bg-white shadow transition-transform", s.active ? "translate-x-4" : "translate-x-0.5"].join(" ")} />
+                    aria-label={activeIds.has(s.id) ? "Deactivate" : "Activate"}
+                    className={["flex items-center h-6 w-11 shrink-0 rounded-full px-[2px] transition-colors duration-200 cursor-pointer", activeIds.has(s.id) ? "bg-[#F4633A]" : "bg-[#3A2E28]/20"].join(" ")}>
+                    <span className={["h-5 w-5 shrink-0 rounded-full bg-white shadow-sm transition-transform duration-200", activeIds.has(s.id) ? "translate-x-5" : "translate-x-0"].join(" ")} />
                   </button>
                   <div>
                     <p className="text-sm font-semibold text-[#3A2E28]">{s.name}</p>
@@ -130,7 +140,7 @@ export function SubscriptionManager({ subscriptions, currency }: Props) {
 
       {open && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-[#3A2E28]/20 backdrop-blur-sm" onClick={close}>
-          <div className="relative w-full max-w-md rounded-3xl bg-white p-8 shadow-2xl max-h-[90vh] overflow-y-auto" onClick={(e) => e.stopPropagation()}>
+          <div className="relative w-full max-w-md rounded-3xl bg-[#FEF9F4] p-8 shadow-2xl max-h-[90vh] overflow-y-auto" onClick={(e) => e.stopPropagation()}>
             <div className="mb-6 flex items-center justify-between">
               <h2 className="text-xl font-extrabold text-[#3A2E28]">{editing ? "Edit Subscription" : "Add Subscription"}</h2>
               <button onClick={close} className="text-[#3A2E28]/30 hover:text-[#3A2E28] text-xl">✕</button>

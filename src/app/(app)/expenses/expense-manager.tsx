@@ -87,9 +87,9 @@ export function ExpenseManager({ expenses, categories, year, month, currency }: 
         <div className="flex items-center gap-3">
           <h1 className="text-2xl font-extrabold text-[#3A2E28]">Expenses</h1>
           <div className="flex items-center gap-1">
-            <button onClick={() => navigate(-1)} className="flex h-7 w-7 items-center justify-center rounded-full bg-white shadow-sm hover:bg-[#F4633A]/10 text-[#3A2E28]/60 hover:text-[#F4633A]">‹</button>
+            <button onClick={() => navigate(-1)} className="flex h-7 w-7 items-center justify-center rounded-full bg-[#FEF9F4] shadow-sm hover:bg-[#F4633A]/10 text-[#3A2E28]/60 hover:text-[#F4633A]">‹</button>
             <span className="text-sm font-bold text-[#3A2E28]/70">{MONTH_NAMES[month - 1]} {year}</span>
-            <button onClick={() => navigate(1)} className="flex h-7 w-7 items-center justify-center rounded-full bg-white shadow-sm hover:bg-[#F4633A]/10 text-[#3A2E28]/60 hover:text-[#F4633A]">›</button>
+            <button onClick={() => navigate(1)} className="flex h-7 w-7 items-center justify-center rounded-full bg-[#FEF9F4] shadow-sm hover:bg-[#F4633A]/10 text-[#3A2E28]/60 hover:text-[#F4633A]">›</button>
           </div>
         </div>
         <button onClick={openAdd} className="rounded-full bg-[#F4633A] px-5 py-2 text-sm font-bold text-white hover:opacity-90 transition-opacity">
@@ -101,14 +101,14 @@ export function ExpenseManager({ expenses, categories, year, month, currency }: 
       <div className="mb-4 flex flex-wrap gap-2">
         {cats.map((cat) => (
           <button key={cat} onClick={() => setFilterCat(cat)}
-            className={["rounded-full px-3 py-1 text-xs font-bold transition-colors", filterCat === cat ? "bg-[#F4633A] text-white" : "bg-white text-[#3A2E28]/60 hover:bg-[#F4633A]/10"].join(" ")}>
+            className={["rounded-full px-3 py-1 text-xs font-bold transition-colors", filterCat === cat ? "bg-[#F4633A] text-white" : "bg-[#FEF9F4] text-[#3A2E28]/60 hover:bg-[#F4633A]/10"].join(" ")}>
             {cat === "all" ? "All" : cat.replace(/_/g, " ").replace(/\b\w/g, c => c.toUpperCase())}
           </button>
         ))}
       </div>
 
       {/* Expense list */}
-      <div className="rounded-2xl bg-white shadow-sm overflow-hidden">
+      <div className="rounded-2xl bg-[#FEF9F4] shadow-sm overflow-hidden">
         {filtered.length === 0 ? (
           <div className="flex flex-col items-center justify-center py-16 text-[#3A2E28]/30">
             <p className="text-4xl mb-2">💸</p>
@@ -149,7 +149,7 @@ export function ExpenseManager({ expenses, categories, year, month, currency }: 
       {/* Modal */}
       {open && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-[#3A2E28]/20 backdrop-blur-sm" onClick={close}>
-          <div className="relative w-full max-w-md rounded-3xl bg-white p-8 shadow-2xl" onClick={(e) => e.stopPropagation()}>
+          <div className="relative w-full max-w-md rounded-3xl bg-[#FEF9F4] p-8 shadow-2xl" onClick={(e) => e.stopPropagation()}>
             <div className="mb-6 flex items-center justify-between">
               <h2 className="text-xl font-extrabold text-[#3A2E28]">{editing ? "Edit Expense" : "Add Expense"}</h2>
               <button onClick={close} className="text-[#3A2E28]/30 hover:text-[#3A2E28] text-xl">✕</button>

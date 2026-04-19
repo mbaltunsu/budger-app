@@ -81,7 +81,7 @@ export function IncomeManager({ incomes, currency }: Props) {
         <p className="mt-1 text-3xl font-extrabold">{formatAmt(String(monthlyTotal), currency)}</p>
       </div>
 
-      <div className="rounded-2xl bg-white shadow-sm overflow-hidden">
+      <div className="rounded-2xl bg-[#FEF9F4] shadow-sm overflow-hidden">
         {incomes.length === 0 ? (
           <div className="flex flex-col items-center justify-center py-16 text-[#3A2E28]/30">
             <p className="text-4xl mb-2">💰</p>
@@ -121,7 +121,7 @@ export function IncomeManager({ incomes, currency }: Props) {
 
       {open && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-[#3A2E28]/20 backdrop-blur-sm" onClick={close}>
-          <div className="relative w-full max-w-md rounded-3xl bg-white p-8 shadow-2xl max-h-[90vh] overflow-y-auto" onClick={(e) => e.stopPropagation()}>
+          <div className="relative w-full max-w-md rounded-3xl bg-[#FEF9F4] p-8 shadow-2xl max-h-[90vh] overflow-y-auto" onClick={(e) => e.stopPropagation()}>
             <div className="mb-6 flex items-center justify-between">
               <h2 className="text-xl font-extrabold text-[#3A2E28]">{editing ? "Edit Income" : "Add Income"}</h2>
               <button onClick={close} className="text-[#3A2E28]/30 hover:text-[#3A2E28] text-xl">✕</button>

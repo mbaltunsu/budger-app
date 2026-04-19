@@ -19,7 +19,7 @@ export default function DashboardLoading() {
       <section className="mx-auto max-w-6xl px-4 py-6">
         <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-5">
           {Array.from({ length: 5 }).map((_, i) => (
-            <div key={i} className="rounded-2xl bg-white px-4 py-3 shadow-sm space-y-2">
+            <div key={i} className="rounded-2xl bg-[#FEF9F4] px-4 py-3 shadow-sm space-y-2">
               <Sk className="h-3 w-20" />
               <Sk className="h-6 w-28" />
             </div>
@@ -33,14 +33,14 @@ export default function DashboardLoading() {
           {/* Left col */}
           <div className="lg:col-span-3 space-y-6">
             {/* Donut chart card */}
-            <div className="rounded-2xl bg-white p-6 shadow-sm">
+            <div className="rounded-2xl bg-[#FEF9F4] p-6 shadow-sm">
               <Sk className="h-4 w-36 mb-6" />
               <div className="flex items-center justify-center">
                 <Sk className="h-48 w-48 rounded-full" />
               </div>
             </div>
             {/* Recent activity card */}
-            <div className="rounded-2xl bg-white p-6 shadow-sm">
+            <div className="rounded-2xl bg-[#FEF9F4] p-6 shadow-sm">
               <Sk className="h-4 w-32 mb-5" />
               <div className="space-y-4">
                 {Array.from({ length: 5 }).map((_, i) => (
@@ -59,7 +59,7 @@ export default function DashboardLoading() {
           {/* Right col */}
           <div className="lg:col-span-2 space-y-6">
             {/* Monthly summary card */}
-            <div className="rounded-2xl bg-white p-6 shadow-sm">
+            <div className="rounded-2xl bg-[#FEF9F4] p-6 shadow-sm">
               <Sk className="h-4 w-36 mb-5" />
               <div className="space-y-3">
                 {Array.from({ length: 4 }).map((_, i) => (
@@ -75,7 +75,7 @@ export default function DashboardLoading() {
               </div>
             </div>
             {/* Upcoming bills card */}
-            <div className="rounded-2xl bg-white p-6 shadow-sm">
+            <div className="rounded-2xl bg-[#FEF9F4] p-6 shadow-sm">
               <Sk className="h-4 w-32 mb-5" />
               <div className="space-y-4">
                 {Array.from({ length: 4 }).map((_, i) => (

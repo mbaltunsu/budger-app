@@ -32,7 +32,7 @@ export function MonthSelector({ year, month }: MonthSelectorProps) {
       <button
         onClick={() => navigate(-1)}
         aria-label="Previous month"
-        className="flex h-9 w-9 items-center justify-center rounded-full bg-white text-[#3A2E28]/50 shadow-sm transition-all hover:bg-[#F4633A] hover:text-white active:scale-90"
+        className="flex h-9 w-9 items-center justify-center rounded-full bg-[#FEF9F4] text-[#3A2E28]/50 shadow-sm transition-all hover:bg-[#F4633A] hover:text-white active:scale-90"
       >
         ‹
       </button>
@@ -42,7 +42,7 @@ export function MonthSelector({ year, month }: MonthSelectorProps) {
       <button
         onClick={() => navigate(1)}
         aria-label="Next month"
-        className="flex h-9 w-9 items-center justify-center rounded-full bg-white text-[#3A2E28]/50 shadow-sm transition-all hover:bg-[#F4633A] hover:text-white active:scale-90"
+        className="flex h-9 w-9 items-center justify-center rounded-full bg-[#FEF9F4] text-[#3A2E28]/50 shadow-sm transition-all hover:bg-[#F4633A] hover:text-white active:scale-90"
       >
         ›
       </button>
