@@ -48,7 +48,7 @@ function LoginForm() {
 
       <button
         type="button"
-        onClick={() => { setEmail("demo@budger.app"); setPassword("demo1234"); }}
+        onClick={() => { setEmail("demo@budger.app"); setPassword("budger-demo-2026"); }}
         className="mb-4 w-full rounded-xl border border-[#F4633A]/25 bg-[#F4633A]/5 px-3 py-2.5 text-xs font-semibold text-[#F4633A]/80 transition-colors hover:bg-[#F4633A]/10 hover:text-[#F4633A]"
       >
         Try demo account

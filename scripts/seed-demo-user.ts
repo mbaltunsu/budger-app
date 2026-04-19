@@ -5,7 +5,7 @@ const prisma = new PrismaClient();
 
 const DEMO = {
   email: "demo@budger.app",
-  password: "demo1234",
+  password: "budger-demo-2026",
   full_name: "Demo User",
 };
 
