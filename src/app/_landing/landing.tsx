@@ -233,6 +233,7 @@ function Nav() {
         <nav className="hidden items-center gap-6 text-sm font-semibold text-[#3A2E28]/60 md:flex">
           <a href="#features" className="hover:text-[#F4633A] transition-colors">Features</a>
           <a href="#preview"  className="hover:text-[#F4633A] transition-colors">Preview</a>
+          <a href="#pricing"  className="hover:text-[#F4633A] transition-colors">Pricing</a>
           <Link href="/login" className="hover:text-[#F4633A] transition-colors">Sign in</Link>
         </nav>
         <Link href="/signup" className="rounded-full bg-[#F4633A] px-5 py-2 text-sm font-bold text-white hover:opacity-90 transition-opacity shadow-[0_4px_14px_rgba(244,99,58,0.35)]">
@@ -246,7 +247,7 @@ function Nav() {
 /* ─── Hero ────────────────────────────────────────────────────────────────── */
 function Hero() {
   return (
-    <section className="relative min-h-screen bg-[#FFFBF5] pt-24 pb-0 overflow-hidden">
+    <section className="relative min-h-screen bg-[#FFFBF5] pt-24 pb-[88px] overflow-hidden">
       <FloatingBlobs />
       <div className="relative z-10 mx-auto max-w-6xl px-6 pt-12 pb-0">
         <div className="grid items-center gap-12 lg:grid-cols-2 lg:gap-16">
@@ -316,7 +317,7 @@ function Hero() {
       </div>
 
       {/* wave transition → coral */}
-      <div className="mt-16">
+      <div className="absolute bottom-0 left-0 w-full">
         <Wave fill="#F4633A" />
       </div>
     </section>
@@ -462,35 +463,217 @@ function Stats() {
   );
 }
 
+/* ─── Pricing ─────────────────────────────────────────────────────────────── */
+function Pricing() {
+  const ref = useFadeUp();
+
+  const plans = [
+    {
+      name: "Free",
+      price: "$0",
+      priceNote: "forever",
+      desc: "Everything you need to take control of your money.",
+      cta: "Get started free",
+      badge: null,
+      dark: false,
+      accent: false,
+      features: [
+        { text: "Full expense tracking", ai: false },
+        { text: "Bills & subscriptions", ai: false },
+        { text: "Monthly budget dashboard", ai: false },
+        { text: "Tax estimate (manual rate)", ai: false },
+        { text: "15 expense categories", ai: false },
+        { text: "Visual spending charts", ai: false },
+      ],
+    },
+    {
+      name: "Plus",
+      price: "$4.99",
+      priceNote: "/mo",
+      desc: "Smarter tracking with AI insights and deeper history.",
+      cta: "Start with Plus",
+      badge: "Most popular",
+      dark: false,
+      accent: true,
+      features: [
+        { text: "Everything in Free", ai: false },
+        { text: "Unlimited custom categories", ai: false },
+        { text: "12-month spending history", ai: false },
+        { text: "CSV export", ai: false },
+        { text: "AI weekly spending summary", ai: true },
+        { text: "AI bill optimizer", ai: true },
+        { text: "Multi-currency support", ai: false },
+      ],
+    },
+    {
+      name: "Pro",
+      price: "$12.99",
+      priceNote: "/mo",
+      desc: "Unlimited AI coaching and the full budger experience.",
+      cta: "Start with Pro",
+      badge: "AI Powered",
+      dark: true,
+      accent: false,
+      features: [
+        { text: "Everything in Plus", ai: false },
+        { text: "Unlimited AI financial coaching", ai: true },
+        { text: "Daily personalized AI insights", ai: true },
+        { text: "Chat with your budget data", ai: true },
+        { text: "AI anomaly & overspend alerts", ai: true },
+        { text: "AI savings goal planner", ai: true },
+        { text: "Family sharing (up to 5)", ai: false },
+        { text: "Bank sync & voice input (soon)", ai: false },
+      ],
+    },
+  ] as const;
+
+  return (
+    <section id="pricing" className="bg-[#FFFBF5] pb-4 pt-4">
+      <div className="mx-auto max-w-6xl px-6 py-20">
+        {/* heading */}
+        <div ref={ref} className="mb-16 text-center">
+          <h2 className="text-3xl font-extrabold text-[#3A2E28] lg:text-4xl">Simple, honest pricing</h2>
+          <p className="mt-3 text-base text-[#3A2E28]/50 max-w-sm mx-auto">
+            Start free. Upgrade when you&apos;re ready for AI superpowers.
+          </p>
+        </div>
+
+        {/* cards */}
+        <div className="grid gap-6 md:grid-cols-3 md:items-end">
+          {plans.map(({ name, price, priceNote, desc, cta, badge, dark, accent, features }) => (
+            <div
+              key={name}
+              className={[
+                "relative flex flex-col rounded-3xl p-8 transition-all duration-300",
+                dark
+                  ? "bg-[#3A2E28] text-white shadow-[0_24px_64px_rgba(58,46,40,0.22)]"
+                  : accent
+                  ? "bg-white border-2 border-[#F4633A] shadow-[0_24px_64px_rgba(244,99,58,0.16)] md:-translate-y-5"
+                  : "bg-white border border-[#3A2E28]/10 shadow-[0_4px_24px_rgba(58,46,40,0.06)]",
+              ].join(" ")}
+            >
+              {/* badge */}
+              {badge && (
+                <div className="absolute -top-4 left-1/2 -translate-x-1/2 whitespace-nowrap">
+                  <span className={[
+                    "inline-flex items-center gap-1.5 rounded-full px-4 py-1.5 text-xs font-bold shadow-sm",
+                    dark
+                      ? "bg-[#F4633A] text-white shadow-[0_4px_12px_rgba(244,99,58,0.35)]"
+                      : "bg-[#F4633A] text-white shadow-[0_4px_12px_rgba(244,99,58,0.35)]",
+                  ].join(" ")}>
+                    {dark ? (
+                      /* sparkle icon for AI */
+                      <svg className="h-3 w-3" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M12 2l1.8 5.4 5.4 1.8-5.4 1.8L12 16.4l-1.8-5.4L4.8 9.2l5.4-1.8L12 2zm-6 14l1.1 3.3 3.3 1.1-3.3 1.1L6 24l-1.1-3.3L1.6 19.5l3.3-1.1L6 16z"/>
+                      </svg>
+                    ) : (
+                      /* star icon for popular */
+                      <svg className="h-3 w-3" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z"/>
+                      </svg>
+                    )}
+                    {badge}
+                  </span>
+                </div>
+              )}
+
+              {/* plan name */}
+              <p className={["mb-1 text-xs font-bold uppercase tracking-widest", dark ? "text-white/45" : "text-[#3A2E28]/40"].join(" ")}>{name}</p>
+
+              {/* price */}
+              <div className="mb-2 flex items-end gap-1">
+                <span className={["text-4xl font-extrabold tracking-tight", dark ? "text-white" : "text-[#3A2E28]"].join(" ")}>{price}</span>
+                <span className={["mb-1.5 text-sm font-semibold", dark ? "text-white/40" : "text-[#3A2E28]/38"].join(" ")}>{priceNote}</span>
+              </div>
+
+              {/* desc */}
+              <p className={["mb-6 text-sm leading-relaxed", dark ? "text-white/55" : "text-[#3A2E28]/50"].join(" ")}>{desc}</p>
+
+              {/* CTA */}
+              <Link
+                href="/signup"
+                className={[
+                  "mb-7 rounded-full py-3 text-center text-sm font-bold transition-all duration-200 hover:-translate-y-0.5",
+                  dark
+                    ? "bg-[#F4633A] text-white shadow-[0_4px_16px_rgba(244,99,58,0.3)] hover:opacity-90"
+                    : accent
+                    ? "bg-[#F4633A] text-white shadow-[0_4px_16px_rgba(244,99,58,0.3)] hover:opacity-90"
+                    : "border border-[#3A2E28]/18 text-[#3A2E28]/65 hover:border-[#F4633A]/40 hover:text-[#F4633A]",
+                ].join(" ")}
+              >
+                {cta}
+              </Link>
+
+              {/* divider */}
+              <div className={["mb-6 h-px", dark ? "bg-white/10" : "bg-[#3A2E28]/7"].join(" ")} />
+
+              {/* feature list */}
+              <ul className="flex-1 space-y-3">
+                {features.map(({ text, ai }) => (
+                  <li key={text} className="flex items-start gap-2.5">
+                    {ai ? (
+                      <svg className="mt-0.5 h-4 w-4 shrink-0 text-[#F4633A]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-label="AI feature">
+                        <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
+                      </svg>
+                    ) : (
+                      <svg className={["mt-0.5 h-4 w-4 shrink-0", dark ? "text-white/30" : accent ? "text-[#2D7A4F]" : "text-[#3A2E28]/25"].join(" ")} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                        <polyline points="20 6 9 17 4 12"/>
+                      </svg>
+                    )}
+                    <span className={["text-sm", dark ? "text-white/70" : "text-[#3A2E28]/65", ai ? "font-semibold" : ""].join(" ")}>
+                      {text}
+                      {ai && (
+                        <span className={["ml-1.5 inline-flex items-center rounded-full px-1.5 py-0.5 text-[9px] font-bold tracking-wide", dark ? "bg-[#F4633A]/20 text-[#F4633A]" : "bg-[#F4633A]/10 text-[#F4633A]"].join(" ")}>
+                          AI
+                        </span>
+                      )}
+                    </span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ))}
+        </div>
+
+        {/* bottom note */}
+        <p className="mt-10 text-center text-xs text-[#3A2E28]/35">
+          No credit card required · Cancel anytime · Plus &amp; Pro coming soon
+        </p>
+      </div>
+      <Wave fill="#F4633A" />
+    </section>
+  );
+}
+
 /* ─── CTA ─────────────────────────────────────────────────────────────────── */
 function CTA() {
   const ref = useFadeUp();
   return (
-    <section className="bg-[#FFFBF5] pb-24 pt-4">
+    <section className="bg-[#F4633A] pb-24 pt-4">
       <div className="mx-auto max-w-2xl px-6 py-20 text-center">
         <div ref={ref}>
           {/* decorative donut */}
           <div className="mb-8 flex justify-center">
             <svg viewBox="0 0 80 80" className="h-16 w-16 animate-float" style={{ animationDelay: "0.3s" }}>
-              <circle cx="40" cy="40" r="34" fill="none" stroke="#F4E8DF" strokeWidth="14" />
-              <circle cx="40" cy="40" r="34" fill="none" stroke="#F4633A" strokeWidth="14" strokeDasharray="110 104" strokeDashoffset="25" strokeLinecap="round" />
+              <circle cx="40" cy="40" r="34" fill="none" stroke="rgba(255,255,255,0.2)" strokeWidth="14" />
+              <circle cx="40" cy="40" r="34" fill="none" stroke="white" strokeWidth="14" strokeDasharray="110 104" strokeDashoffset="25" strokeLinecap="round" />
               <circle cx="40" cy="40" r="34" fill="none" stroke="#2D7A4F" strokeWidth="14" strokeDasharray="55 159" strokeDashoffset="-85" strokeLinecap="round" />
-              <circle cx="40" cy="40" r="7" fill="#FFFBF5" />
+              <circle cx="40" cy="40" r="7" fill="#F4633A" />
             </svg>
           </div>
 
-          <h2 className="mb-4 text-4xl font-extrabold tracking-tight text-[#3A2E28] lg:text-5xl">
+          <h2 className="mb-4 text-4xl font-extrabold tracking-tight text-white lg:text-5xl">
             Ready to see where<br />your money really goes?
           </h2>
-          <p className="mb-8 text-base text-[#3A2E28]/50">
+          <p className="mb-8 text-base text-white/65">
             Sign up in 30 seconds. No bank connection. No credit card.
           </p>
 
-          <Link href="/signup" className="group inline-flex items-center gap-2 rounded-full bg-[#F4633A] px-8 py-4 text-base font-bold text-white shadow-[0_8px_32px_rgba(244,99,58,0.38)] transition-all hover:shadow-[0_12px_40px_rgba(244,99,58,0.5)] hover:-translate-y-1">
+          <Link href="/signup" className="group inline-flex items-center gap-2 rounded-full bg-white px-8 py-4 text-base font-bold text-[#F4633A] shadow-[0_8px_32px_rgba(0,0,0,0.15)] transition-all hover:shadow-[0_12px_40px_rgba(0,0,0,0.2)] hover:-translate-y-1">
             Get started free
             <svg className="h-5 w-5 transition-transform group-hover:translate-x-0.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M5 12h14M12 5l7 7-7 7" /></svg>
           </Link>
-          <p className="mt-4 text-xs text-[#3A2E28]/35">Free forever · No credit card</p>
+          <p className="mt-4 text-xs text-white/45">Free forever · No credit card</p>
         </div>
       </div>
     </section>
@@ -527,6 +710,7 @@ export default function Landing() {
         <Features />
         <AppPreview />
         <Stats />
+        <Pricing />
         <CTA />
         <Footer />
       </div>
