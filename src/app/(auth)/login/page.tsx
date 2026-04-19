@@ -46,15 +46,13 @@ function LoginForm() {
     <>
       <h1 className="mb-6 text-xl font-bold text-[#3A2E28]">Sign in</h1>
 
-      {process.env.NODE_ENV !== "production" && (
-        <button
-          type="button"
-          onClick={() => { setEmail("dev@budger.app"); setPassword("budger-dev-2026"); }}
-          className="mb-4 w-full rounded-xl border border-dashed border-[#3A2E28]/20 px-3 py-2 text-xs text-[#3A2E28]/40 transition-colors hover:border-[#F4633A]/40 hover:text-[#F4633A]/60"
-        >
-          Dev: fill test account
-        </button>
-      )}
+      <button
+        type="button"
+        onClick={() => { setEmail("demo@budger.app"); setPassword("demo1234"); }}
+        className="mb-4 w-full rounded-xl border border-[#F4633A]/25 bg-[#F4633A]/5 px-3 py-2.5 text-xs font-semibold text-[#F4633A]/80 transition-colors hover:bg-[#F4633A]/10 hover:text-[#F4633A]"
+      >
+        Try demo account
+      </button>
 
       {error && (
         <div className="mb-4 rounded-xl bg-red-50 px-4 py-3 text-sm text-red-600">
