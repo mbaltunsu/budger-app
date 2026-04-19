@@ -1,0 +1,29 @@
+- generic [active] [ref=e1]:
+  - generic [ref=e3]:
+    - generic [ref=e4]:
+      - img "Ankara University" [ref=e6]
+      - heading "Ankara Üniversitesi" [level=1] [ref=e7]
+      - paragraph [ref=e8]: ISO Portal Yönetici Girişi
+    - generic [ref=e9]:
+      - generic [ref=e10]:
+        - generic [ref=e11]: Kurumsal E-posta
+        - textbox "Kurumsal E-posta" [ref=e12]:
+          - /placeholder: E-posta adresinizi girin
+          - text: superadmin@ankara.edu.tr
+      - generic [ref=e13]:
+        - generic [ref=e14]: Şifre
+        - generic [ref=e15]:
+          - textbox "Şifre" [ref=e16]:
+            - /placeholder: Şifrenizi girin
+            - text: Admin123!
+          - button "Şifreyi göster" [ref=e17]:
+            - img [ref=e18]
+      - link "Şifremi unuttum" [ref=e22] [cursor=pointer]:
+        - /url: /forgot-password
+      - button "Giriş Yap" [ref=e23]:
+        - text: Giriş Yap
+        - img [ref=e24]
+  - region "Notifications alt+T"
+  - button "Open Next.js Dev Tools" [ref=e31] [cursor=pointer]:
+    - img [ref=e32]
+  - alert [ref=e35]

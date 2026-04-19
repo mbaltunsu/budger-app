@@ -1,0 +1,321 @@
+- generic [ref=e2]:
+  - banner [ref=e3]:
+    - generic [ref=e4]:
+      - link "b budger" [ref=e5] [cursor=pointer]:
+        - /url: /
+        - generic [ref=e6]: b
+        - generic [ref=e7]: budger
+      - navigation [ref=e8]:
+        - link "Features" [ref=e9] [cursor=pointer]:
+          - /url: "#features"
+        - link "Preview" [ref=e10] [cursor=pointer]:
+          - /url: "#preview"
+        - link "Sign in" [ref=e11] [cursor=pointer]:
+          - /url: /login
+      - link "Get started free" [ref=e13] [cursor=pointer]:
+        - /url: /login
+  - generic [ref=e14]:
+    - generic:
+      - img:
+        - generic: $
+      - img
+      - img
+    - generic [ref=e16]:
+      - generic [ref=e17]:
+        - generic [ref=e22]: Now in early access
+        - heading "Your money, finally clear." [level=1] [ref=e23]:
+          - text: Your money,
+          - generic [ref=e24]:
+            - text: finally clear.
+            - img [ref=e25]
+        - paragraph [ref=e27]: Track income, bills, subscriptions and daily spending in one place — and see exactly what's left to spend, every day.
+        - generic [ref=e28]:
+          - link "Get started — it's free" [ref=e29] [cursor=pointer]:
+            - /url: /login
+            - text: Get started — it's free
+            - img [ref=e30]
+          - link "Sign in" [ref=e32] [cursor=pointer]:
+            - /url: /login
+        - generic [ref=e33]:
+          - generic [ref=e34]:
+            - img [ref=e36]
+            - img [ref=e39]
+            - img [ref=e42]
+            - img [ref=e45]
+          - generic [ref=e47]:
+            - text: Trusted by early users ·
+            - strong [ref=e48]: free forever
+      - generic [ref=e49]:
+        - img [ref=e51]:
+          - generic [ref=e57]: DISPOSABLE INCOME
+          - generic [ref=e58]: $2,418
+          - generic [ref=e59]: April 2026
+          - generic [ref=e60]:
+            - generic [ref=e62]: INCOME
+            - generic [ref=e63]: +$8,200
+          - generic [ref=e64]:
+            - generic [ref=e66]: TAX
+            - generic [ref=e67]: −$1,640
+          - generic [ref=e68]:
+            - generic [ref=e70]: FIXED
+            - generic [ref=e71]: −$2,100
+          - generic [ref=e72]:
+            - generic [ref=e74]: SAVED
+            - generic [ref=e75]: +$418
+          - generic [ref=e77]: Spending breakdown
+          - generic [ref=e82]: $4,082
+          - generic [ref=e83]: spent
+          - generic [ref=e86]: Housing · $1,890
+          - generic [ref=e89]: Transport · $410
+          - generic [ref=e92]: Food · $620
+          - generic [ref=e95]: Other · $462
+          - generic [ref=e97]: Month at a glance
+          - generic [ref=e98]:
+            - generic [ref=e100]: Gross income
+            - generic [ref=e101]: $8,200
+          - generic [ref=e102]:
+            - generic [ref=e104]: Est. tax
+            - generic [ref=e105]: −$1,640
+          - generic [ref=e106]:
+            - generic [ref=e108]: Fixed costs
+            - generic [ref=e109]: −$2,100
+          - generic [ref=e110]:
+            - generic [ref=e111]: Savings
+            - generic [ref=e112]: +$418
+        - generic [ref=e113]:
+          - paragraph [ref=e114]: This month saved
+          - paragraph [ref=e115]: +$418
+        - generic [ref=e116]:
+          - paragraph [ref=e117]: Next bill
+          - paragraph [ref=e118]: Rent · 3 days
+    - generic [ref=e119]:
+      - generic:
+        - img
+  - generic [ref=e120]:
+    - generic [ref=e121]:
+      - generic [ref=e122]:
+        - heading "Built for real life" [level=2] [ref=e123]
+        - paragraph [ref=e124]: No jargon, no spreadsheets. Just clear numbers that help you make better decisions.
+      - generic [ref=e125]:
+        - generic [ref=e126]:
+          - img [ref=e128]
+          - heading "Track everything" [level=3] [ref=e133]
+          - paragraph [ref=e134]: Income, bills, subscriptions and daily expenses — all in one dashboard. No more switching between apps.
+        - generic [ref=e135]:
+          - img [ref=e137]
+          - heading "Understand your money" [level=3] [ref=e143]
+          - paragraph [ref=e144]: Soft, fluid charts break down where every dollar goes — by category, by month, at a glance.
+        - generic [ref=e145]:
+          - img [ref=e147]
+          - heading "Plan ahead" [level=3] [ref=e150]
+          - paragraph [ref=e151]: Know your disposable income before you spend it. See upcoming bills and never be caught off-guard.
+        - generic [ref=e152]:
+          - img [ref=e154]
+          - heading "Private & secure" [level=3] [ref=e159]
+          - paragraph [ref=e160]: Your financial data belongs to you. No ads, no selling your data. Just a clean tool that works.
+    - generic:
+      - img
+  - generic [ref=e161]:
+    - generic [ref=e162]:
+      - generic [ref=e163]:
+        - heading "Everything in one view" [level=2] [ref=e164]
+        - paragraph [ref=e165]: Your full financial picture — income, costs, spending — in a single beautiful dashboard.
+      - generic [ref=e167]:
+        - generic [ref=e172]: app.budger.io/dashboard
+        - img [ref=e174]:
+          - generic [ref=e180]: DISPOSABLE INCOME
+          - generic [ref=e181]: $2,418
+          - generic [ref=e182]: April 2026
+          - generic [ref=e183]:
+            - generic [ref=e185]: INCOME
+            - generic [ref=e186]: +$8,200
+          - generic [ref=e187]:
+            - generic [ref=e189]: TAX
+            - generic [ref=e190]: −$1,640
+          - generic [ref=e191]:
+            - generic [ref=e193]: FIXED
+            - generic [ref=e194]: −$2,100
+          - generic [ref=e195]:
+            - generic [ref=e197]: SAVED
+            - generic [ref=e198]: +$418
+          - generic [ref=e200]: Spending breakdown
+          - generic [ref=e205]: $4,082
+          - generic [ref=e206]: spent
+          - generic [ref=e209]: Housing · $1,890
+          - generic [ref=e212]: Transport · $410
+          - generic [ref=e215]: Food · $620
+          - generic [ref=e218]: Other · $462
+          - generic [ref=e220]: Month at a glance
+          - generic [ref=e221]:
+            - generic [ref=e222]: Gross income
+            - generic [ref=e223]: $8,200
+          - generic [ref=e224]:
+            - generic [ref=e225]: Est. tax
+            - generic [ref=e226]: −$1,640
+          - generic [ref=e227]:
+            - generic [ref=e228]: Fixed costs
+            - generic [ref=e229]: −$2,100
+          - generic [ref=e230]:
+            - generic [ref=e231]: Savings
+            - generic [ref=e232]: +$418
+    - generic:
+      - img
+  - generic [ref=e233]:
+    - generic [ref=e235]:
+      - generic [ref=e236]:
+        - paragraph [ref=e237]: "5"
+        - paragraph [ref=e238]: Setup in minutes
+        - paragraph [ref=e239]: No bank connection required
+      - generic [ref=e240]:
+        - paragraph [ref=e241]:
+          - generic [ref=e242]: 0+
+        - paragraph [ref=e243]: Expense categories
+        - paragraph [ref=e244]: Pre-seeded and ready to use
+      - generic [ref=e245]:
+        - paragraph [ref=e246]:
+          - generic [ref=e247]: 0%
+        - paragraph [ref=e248]: Free to start
+        - paragraph [ref=e249]: No credit card, no trial
+    - generic:
+      - img
+  - generic [ref=e250]:
+    - generic [ref=e251]:
+      - generic [ref=e252]:
+        - heading "Simple, honest pricing" [level=2] [ref=e253]
+        - paragraph [ref=e254]: Start free. Upgrade when you're ready for AI superpowers.
+      - generic [ref=e255]:
+        - generic [ref=e256]:
+          - paragraph [ref=e257]: Free
+          - generic [ref=e258]:
+            - generic [ref=e259]: $0
+            - generic [ref=e260]: forever
+          - paragraph [ref=e261]: Everything you need to take control of your money.
+          - link "Get started free" [ref=e262] [cursor=pointer]:
+            - /url: /login
+          - list [ref=e264]:
+            - listitem [ref=e265]:
+              - img [ref=e266]
+              - generic [ref=e268]: Full expense tracking
+            - listitem [ref=e269]:
+              - img [ref=e270]
+              - generic [ref=e272]: Bills & subscriptions
+            - listitem [ref=e273]:
+              - img [ref=e274]
+              - generic [ref=e276]: Monthly budget dashboard
+            - listitem [ref=e277]:
+              - img [ref=e278]
+              - generic [ref=e280]: Tax estimate (manual rate)
+            - listitem [ref=e281]:
+              - img [ref=e282]
+              - generic [ref=e284]: 15 expense categories
+            - listitem [ref=e285]:
+              - img [ref=e286]
+              - generic [ref=e288]: Visual spending charts
+        - generic [ref=e289]:
+          - generic [ref=e291]:
+            - img [ref=e292]
+            - text: Most popular
+          - paragraph [ref=e294]: Plus
+          - generic [ref=e295]:
+            - generic [ref=e296]: $4.99
+            - generic [ref=e297]: /mo
+          - paragraph [ref=e298]: Smarter tracking with AI insights and deeper history.
+          - link "Start with Plus" [ref=e299] [cursor=pointer]:
+            - /url: /login
+          - list [ref=e301]:
+            - listitem [ref=e302]:
+              - img [ref=e303]
+              - generic [ref=e305]: Everything in Free
+            - listitem [ref=e306]:
+              - img [ref=e307]
+              - generic [ref=e309]: Unlimited custom categories
+            - listitem [ref=e310]:
+              - img [ref=e311]
+              - generic [ref=e313]: 12-month spending history
+            - listitem [ref=e314]:
+              - img [ref=e315]
+              - generic [ref=e317]: CSV export
+            - listitem [ref=e318]:
+              - img "AI feature" [ref=e319]
+              - generic [ref=e321]:
+                - text: AI weekly spending summary
+                - generic [ref=e322]: AI
+            - listitem [ref=e323]:
+              - img "AI feature" [ref=e324]
+              - generic [ref=e326]:
+                - text: AI bill optimizer
+                - generic [ref=e327]: AI
+            - listitem [ref=e328]:
+              - img [ref=e329]
+              - generic [ref=e331]: Multi-currency support
+        - generic [ref=e332]:
+          - generic [ref=e334]:
+            - img [ref=e335]
+            - text: AI Powered
+          - paragraph [ref=e337]: Pro
+          - generic [ref=e338]:
+            - generic [ref=e339]: $12.99
+            - generic [ref=e340]: /mo
+          - paragraph [ref=e341]: Unlimited AI coaching and the full budger experience.
+          - link "Start with Pro" [ref=e342] [cursor=pointer]:
+            - /url: /login
+          - list [ref=e344]:
+            - listitem [ref=e345]:
+              - img [ref=e346]
+              - generic [ref=e348]: Everything in Plus
+            - listitem [ref=e349]:
+              - img "AI feature" [ref=e350]
+              - generic [ref=e352]:
+                - text: Unlimited AI financial coaching
+                - generic [ref=e353]: AI
+            - listitem [ref=e354]:
+              - img "AI feature" [ref=e355]
+              - generic [ref=e357]:
+                - text: Daily personalized AI insights
+                - generic [ref=e358]: AI
+            - listitem [ref=e359]:
+              - img "AI feature" [ref=e360]
+              - generic [ref=e362]:
+                - text: Chat with your budget data
+                - generic [ref=e363]: AI
+            - listitem [ref=e364]:
+              - img "AI feature" [ref=e365]
+              - generic [ref=e367]:
+                - text: AI anomaly & overspend alerts
+                - generic [ref=e368]: AI
+            - listitem [ref=e369]:
+              - img "AI feature" [ref=e370]
+              - generic [ref=e372]:
+                - text: AI savings goal planner
+                - generic [ref=e373]: AI
+            - listitem [ref=e374]:
+              - img [ref=e375]
+              - generic [ref=e377]: Family sharing (up to 5)
+            - listitem [ref=e378]:
+              - img [ref=e379]
+              - generic [ref=e381]: Bank sync & voice input (soon)
+      - paragraph [ref=e382]: No credit card required · Cancel anytime · Plus & Pro coming soon
+    - generic:
+      - img
+  - generic [ref=e385]:
+    - img [ref=e387]
+    - heading "Ready to see where your money really goes?" [level=2] [ref=e392]:
+      - text: Ready to see where
+      - text: your money really goes?
+    - paragraph [ref=e393]: Sign up in 30 seconds. No bank connection. No credit card.
+    - link "Get started free" [ref=e394] [cursor=pointer]:
+      - /url: /login
+      - text: Get started free
+      - img [ref=e395]
+    - paragraph [ref=e397]: Free forever · No credit card
+  - contentinfo [ref=e398]:
+    - generic [ref=e399]:
+      - generic [ref=e400]:
+        - generic [ref=e401]: b
+        - text: budger
+      - generic [ref=e402]: © 2026 budger. Made with care.
+      - generic [ref=e403]:
+        - link "Privacy" [ref=e404] [cursor=pointer]:
+          - /url: "#"
+        - link "Terms" [ref=e405] [cursor=pointer]:
+          - /url: "#"
