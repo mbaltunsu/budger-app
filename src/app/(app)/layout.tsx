@@ -28,6 +28,11 @@ export default async function AppLayout({ children }: { children: React.ReactNod
         [data-app] { font-family: var(--font-jakarta), system-ui, sans-serif; }
         [data-app] h1, [data-app] h2, [data-app] h3 { font-family: var(--font-nunito), system-ui, sans-serif; }
         [data-app] .font-nunito { font-family: var(--font-nunito), system-ui, sans-serif; }
+        @keyframes slideDown {
+          from { opacity: 0; transform: translateY(-8px); }
+          to   { opacity: 1; transform: translateY(0); }
+        }
+        [data-app] .menu-slide-down { animation: slideDown 0.2s cubic-bezier(0.16,1,0.3,1) forwards; }
       `}</style>
       <NavBar userName={user.name ?? null} userEmail={user.email} />
       {children}
