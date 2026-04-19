@@ -237,6 +237,7 @@ function Nav() {
           <nav className="hidden items-center gap-6 text-sm font-semibold text-[#3A2E28]/60 md:flex">
             <a href="#features" className="hover:text-[#F4633A] transition-colors">Features</a>
             <a href="#preview"  className="hover:text-[#F4633A] transition-colors">Preview</a>
+            <a href="#pricing"  className="hover:text-[#F4633A] transition-colors">Pricing</a>
             <Link href="/login" className="hover:text-[#F4633A] transition-colors">Sign in</Link>
           </nav>
 
@@ -269,6 +270,7 @@ function Nav() {
             <nav className="flex flex-col gap-1 pt-2">
               <a href="#features" onClick={() => setMenuOpen(false)} className="rounded-xl px-4 py-3 text-sm font-semibold text-[#3A2E28]/70 hover:bg-[#F4633A]/8 hover:text-[#F4633A] transition-colors">Features</a>
               <a href="#preview"  onClick={() => setMenuOpen(false)} className="rounded-xl px-4 py-3 text-sm font-semibold text-[#3A2E28]/70 hover:bg-[#F4633A]/8 hover:text-[#F4633A] transition-colors">Preview</a>
+              <a href="#pricing"  onClick={() => setMenuOpen(false)} className="rounded-xl px-4 py-3 text-sm font-semibold text-[#3A2E28]/70 hover:bg-[#F4633A]/8 hover:text-[#F4633A] transition-colors">Pricing</a>
               <Link href="/login" onClick={() => setMenuOpen(false)} className="rounded-xl px-4 py-3 text-sm font-semibold text-[#3A2E28]/70 hover:bg-[#F4633A]/8 hover:text-[#F4633A] transition-colors">Sign in</Link>
             </nav>
           </div>
